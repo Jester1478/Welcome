@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap');
+
+body { font-family: 'IBM Plex Sans Thai', sans-serif; }
+.font-mono { font-family: 'Space Mono', monospace !important; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-in { animation: fadeIn 0.4s ease; }
+
+input:focus { outline: none; }
+input.error   { border-color: #c0392b !important; }
+input.success { border-color: #2d6a4f !important; }

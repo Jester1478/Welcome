@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>คำใบ้ที่ 2</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-[#f5f4f0] text-[#111111] min-h-screen flex flex-col items-center justify-center px-6 py-8">
+
+<div class="w-full max-w-sm fade-in">
+
+  <!-- Progress bar -->
+  <div class="flex gap-1.5 mb-8">
+    <div class="h-[3px] flex-1 bg-[#111111] rounded-full"></div>
+    <div class="h-[3px] flex-1 bg-[#dddddd] rounded-full"></div>
+  </div>
+
+  <!-- Header -->
+  <div class="mb-10 mx-auto text-center">
+    <p class="font-mono text-[11px] text-gray-400 tracking-[3px] uppercase mb-2">คำใบ้ที่ 2 / 3</p>
+    <h1 class="text-[22px] font-semibold leading-snug tracking-tight">น้องไม่อยากไปเล่นเกมตอบคำถามหน่อยหรอ จะได้ไม่ต้องเสียเวลามากรอกคำใบ้</h1>
+  </div>
+
+  <!-- Card -->
+  <div class="bg-white border border-[#dddddd] rounded-xl p-7 mb-4">
+    <div class="flex flex-col gap-2 mb-5">
+      <label class="text-[11px] font-medium text-gray-400 tracking-[1px] uppercase">คำใบ้ที่ 2</label>
+      <input type="text" id="input-clue1"
+             placeholder="พิมพ์คำใบ้ที่ได้รับมา..."
+             autocomplete="off"
+             class="w-full px-4 py-3.5 border-[1.5px] border-[#dddddd] rounded-lg text-[15px] bg-[#f5f4f0] text-[#111111] transition-colors duration-200 focus:border-[#111111] focus:bg-white" />
+    </div>
+    <button onclick="checkClue()"
+            class="w-full py-4 bg-[#111111] text-white rounded-lg text-[15px] font-semibold cursor-pointer transition-all duration-150 hover:bg-[#333] active:scale-[0.98]">
+      ส่งคำใบ้ →
+    </button>
+    <div id="msg" class="hidden text-[13px] px-3.5 py-2.5 rounded-md mt-3 leading-relaxed"></div>
+  </div>
+
+  <a href="index.html">
+    <button class="w-full py-4 bg-transparent text-[#111111] border-[1.5px] border-[#dddddd] rounded-lg text-[15px] font-semibold cursor-pointer transition-all duration-150 hover:border-[#111111] mt-2">
+      ← กลับหน้าแรก
+    </button>
+  </a>
+
+</div>
+<script>
+  // 🔴 แก้คำใบ้ที่ถูกต้องได้ที่นี่
+  const ANSWER = "พี่มีออมนิทริกส์";
+
+  function checkClue() {
+    const input = document.getElementById('input-clue1');
+    const msg   = document.getElementById('msg');
+    const val   = input.value.trim();
+
+    if (!val) {
+      showMsg('กรุณาพิมพ์คำใบ้ก่อนนะ', 'error');
+      input.classList.add('error');
+      return;
+    }
+
+    if (val.toLowerCase() === ANSWER.toLowerCase()) {
+      input.classList.remove('error');
+      input.classList.add('success');
+      showMsg('✓ เก่งมาก! ไปคำใบ้ต่อไปดีกว่า...', 'success');
+      setTimeout(() => window.location.href = 'clue2.html', 900);
+    } else {
+      input.classList.remove('success');
+      input.classList.add('error');
+      showMsg('✗ เอ๊ะ! เหมือนจะยังไม่ถูกนะ', 'error');
+    }
+  }
+
+  function showMsg(text, type) {
+    const msg = document.getElementById('msg');
+    msg.textContent = text;
+    msg.className = type === 'error'
+      ? 'text-[13px] px-3.5 py-2.5 rounded-md mt-3 leading-relaxed bg-[#fdecea] text-[#c0392b] block'
+      : 'text-[13px] px-3.5 py-2.5 rounded-md mt-3 leading-relaxed bg-[#e9f5ee] text-[#2d6a4f] block';
+  }
+
+  document.getElementById('input-clue1').addEventListener('keydown', e => {
+    if (e.key === 'Enter') checkClue();
+  });
+</script>
+</body>
+</html>
