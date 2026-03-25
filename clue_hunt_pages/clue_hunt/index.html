@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>น้องรหัส — เริ่มต้น</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  .home-logo {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--gray);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .choice-card {
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    padding: 22px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 12px;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.2s;
+  }
+  .choice-card:hover {
+    border-color: var(--black);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  }
+
+  .choice-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 20px;
+    font-weight: 700;
+    min-width: 32px;
+  }
+
+  .choice-text h3 { font-size: 16px; font-weight: 600; }
+  .choice-text p  { font-size: 13px; color: var(--gray); margin-top: 3px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="header">
+    <h1>ยินดีต้อนรับน้องรหัสที่น่ารัก 👋</h1>
+    <p class="subtitle">ไหนๆก็หลงเข้ามากันแล้ว ลองเล่นดูกันสักหน่อยนะ</p>
+  </div>
+
+  <a class="choice-card" href="clue1.html">
+    <div class="choice-num">01</div>
+    <div class="choice-text">
+      <h3>กรอกคำใบ้</h3>
+      <p>อันนี้ง่ายกว่าอันข้างล่าง แต่ก็ต้องรอคำใบ้หน่อยนะ</p>
+    </div>
+  </a>
+
+  <a class="choice-card" href="qa.html">
+    <div class="choice-num">02</div>
+    <div class="choice-text">
+      <h3>ทายคำถาม</h3>
+      <p>ถ้าไม่อยากเสียเวลามากรอกคำใบ้ก็ลองท้าทายกันหน่อย</p>
+    </div>
+  </a>
+</div>
+</body>
+</html>
