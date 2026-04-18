@@ -9,12 +9,13 @@
 </head>
 <body class="bg-[#f5f4f0] text-[#111111] min-h-screen flex flex-col items-center justify-center px-6 py-8">
 
-<div class="w-full max-w-md fade-in">
+<div class="w-full max-w-lg fade-in">
 
   <!-- Header -->
   <div class="mb-8 text-center">
     <p class="font-semibold text-[28px] text-black tracking-tight mb-1">โหมดตอบคำถาม</p>
-    <p class="text-sm text-gray-400 font-light">ตอบให้ครบแล้วกดส่ง</p>
+    <p class="mb-5 text-[18px] font-semibold leading-snug">ไม่ต้องซีเรียสเรื่องคะแนนนะ เพราะมันเป็นแค่การวัดความรู้พื้นฐาน</p>
+    <p class="mb-5 text-[18px] text-red-700 font-semibold leading-snug">ถ้าทำเสร็จก็แคปหน้าจอไว้ด้วย เผื่อพี่จะถาม</p>
   </div>
 
   <!-- Q1 -->
@@ -109,6 +110,29 @@
     </div>
   </div>
 
+  <!-- Q5 -->
+  <div class="bg-white border border-[#dddddd] rounded-xl p-7 mb-4">
+    <p class="mb-5 text-[18px] font-semibold leading-snug">5. Git คืออะไร?</p>
+    <div class="flex flex-col gap-3">
+      <label class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
+        <input type="radio" name="q5" value="Notepad" class="w-4 h-4 accent-[#111111]">
+        <span class="text-[15px]">ระบบควบคุมเวอร์ชัน (Version Control) ที่บันทึกประวัติการแก้ไขโค้ด และช่วยให้ทำงานร่วมกันเป็นทีมได้</span>
+      </label>
+      <label class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
+        <input type="radio" name="q5" value="Sublime" class="w-4 h-4 accent-[#111111]">
+        <span class="text-[15px]">บริการคลาวด์เซิร์ฟเวอร์ (Cloud) สำหรับฝากไฟล์และโชว์ผลงานโปรเจคของโปรแกรมเมอร์</span>
+      </label>
+      <label class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
+        <input type="radio" name="q5" value="Vim" class="w-4 h-4 accent-[#111111]">
+        <span class="text-[15px]">เครื่องมือสำหรับดาวน์โหลดและจัดการ Library หรือ Package ต่างๆ ที่ต้องใช้ในโปรเจค</span>
+      </label>
+      <label class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
+        <input type="radio" name="q5" value="VSCode" class="w-4 h-4 accent-[#111111]">
+        <span class="text-[15px]">ระบบอัตโนมัติที่ช่วยแปลงโค้ดและอัพโหลดเว็บไซต์ขึ้นไปบน Server (Deployment)</span>
+      </label>
+    </div>
+  </div>
+
   <!-- Error msg -->
   <div id="msg" class="hidden text-[13px] px-3.5 py-2.5 rounded-md mb-3 leading-relaxed bg-[#fdecea] text-[#c0392b]"></div>
 
@@ -165,6 +189,17 @@
         "Sublime": "Sublime Text",
         "Vim": "Vim",
         "VSCode": "Visual Studio Code"
+      }
+    },
+    {
+      name: "q5",
+      question: "Git คืออะไร?",
+      correct: "Notepad",
+      choices: {
+        "Notepad": "ระบบควบคุมเวอร์ชัน (Version Control) ที่บันทึกประวัติการแก้ไขโค้ด และช่วยให้ทำงานร่วมกันเป็นทีมได้",
+        "Sublime": "บริการคลาวด์เซิร์ฟเวอร์ (Cloud) สำหรับฝากไฟล์และโชว์ผลงานโปรเจคของโปรแกรมเมอร์",
+        "Vim": "เครื่องมือสำหรับดาวน์โหลดและจัดการ Library หรือ Package ต่างๆ ที่ต้องใช้ในโปรเจค",
+        "VSCode": "ระบบอัตโนมัติที่ช่วยแปลงโค้ดและอัพโหลดเว็บไซต์ขึ้นไปบน Server (Deployment)"
       }
     }
   ];
