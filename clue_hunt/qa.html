@@ -1,38 +1,201 @@
 <!DOCTYPE html>
 <html lang="th">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ทายคำถาม</title>
+  <title>ตอบคำถาม</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="style.css">
 </head>
-
 <body class="bg-[#f5f4f0] text-[#111111] min-h-screen flex flex-col items-center justify-center px-6 py-8">
 
-  <div class="w-full max-w-md fade-in">
+<div class="w-full max-w-md fade-in">
 
-    <!-- Header -->
-    <div class="mb-10">
-      <p class="font-mono text-[11px] text-gray-400 tracking-[3px] uppercase mb-2">โหมดทายคำถาม</p>
-      <h1 class="text-[26px] font-semibold leading-snug tracking-tight">เร็วๆ นี้ 🛠️</h1>
-    </div>
-
-    <!-- Card -->
-    <div class="bg-white border border-[#dddddd] rounded-xl p-7 mb-4 text-center">
-      <div class="text-5xl mb-4">🔒</div>
-      <p class="text-sm text-gray-400 leading-relaxed">โหมดนี้กำลังจะเปิดให้ใช้งาน<br>เดี๋ยวกลับมาอีกที!</p>
-    </div>
-
-    <a href="index.html">
-      <button
-        class="w-full py-4 bg-transparent text-[#111111] border-[1.5px] border-[#dddddd] rounded-lg text-[15px] font-semibold cursor-pointer transition-all duration-150 hover:border-[#111111] mt-2">
-        ← กลับหน้าแรก
-      </button>
-    </a>
-
+  <!-- Header -->
+  <div class="mb-8 text-center">
+    <p class="font-semibold text-[28px] text-black tracking-tight mb-1">โหมดตอบคำถาม</p>
+    <p class="text-sm text-gray-400 font-light">ตอบให้ครบแล้วกดส่ง</p>
   </div>
-</body>
 
+  <!-- Q1 -->
+  <div class="bg-white border border-[#dddddd] rounded-xl p-7 mb-4">
+    <p class="mb-5 text-[18px] font-semibold leading-snug">1. ภาษาโปรแกรมมิ่งที่ถูกใช้งานมากที่สุดในโลกคือภาษาอะไร?</p>
+    <div class="flex flex-col gap-3">
+      <label class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
+        <input type="radio" name="q1" value="Python" class="w-4 h-4 accent-[#111111]">
+        <span class="text-[15px]">Python</span>
+      </label>
+      <label class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
+        <input type="radio" name="q1" value="Html" class="w-4 h-4 accent-[#111111]">
+        <span class="text-[15px]">HTML</span>
+      </label>
+      <label class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
+        <input type="radio" name="q1" value="JavaScript" class="w-4 h-4 accent-[#111111]">
+        <span class="text-[15px]">JavaScript</span>
+      </label>
+      <label class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
+        <input type="radio" name="q1" value="C++" class="w-4 h-4 accent-[#111111]">
+        <span class="text-[15px]">C++</span>
+      </label>
+    </div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="bg-white border border-[#dddddd] rounded-xl p-7 mb-4">
+    <p class="mb-5 text-[18px] font-semibold leading-snug">2. Front-end คืออะไร?</p>
+    <div class="flex flex-col gap-3">
+      <label class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
+        <input type="radio" name="q2" value="database" class="w-4 h-4 accent-[#111111]">
+        <span class="text-[15px]">การจัดการระบบฐานข้อมูลและการจัดเก็บข้อมูลบน Server</span>
+      </label>
+      <label class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
+        <input type="radio" name="q2" value="ui" class="w-4 h-4 accent-[#111111]">
+        <span class="text-[15px]">ส่วนประกอบของเว็บไซต์ที่ผู้ใช้งานมองเห็นและโต้ตอบได้</span>
+      </label>
+      <label class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
+        <input type="radio" name="q2" value="logic" class="w-4 h-4 accent-[#111111]">
+        <span class="text-[15px]">การเขียน Logic หลังบ้านเพื่อคำนวณข้อมูลที่ซับซ้อน</span>
+      </label>
+      <label class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
+        <input type="radio" name="q2" value="api" class="w-4 h-4 accent-[#111111]">
+        <span class="text-[15px]">การเชื่อมต่อระหว่างระบบปฏิบัติการกับฮาร์ดแวร์คอมพิวเตอร์</span>
+      </label>
+    </div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="bg-white border border-[#dddddd] rounded-xl p-7 mb-4">
+    <p class="mb-5 text-[18px] font-semibold leading-snug">3. Back-end คืออะไร?</p>
+    <div class="flex flex-col gap-3">
+      <label class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
+        <input type="radio" name="q3" value="design" class="w-4 h-4 accent-[#111111]">
+        <span class="text-[15px]">การออกแบบสีสันและ Layout ของเว็บไซต์ให้สวยงาม</span>
+      </label>
+      <label class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
+        <input type="radio" name="q3" value="logic" class="w-4 h-4 accent-[#111111]">
+        <span class="text-[15px]">ส่วนการประมวลผลของ Server, การจัดการฐานข้อมูล และ Logic หลังบ้าน</span>
+      </label>
+      <label class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
+        <input type="radio" name="q3" value="browser" class="w-4 h-4 accent-[#111111]">
+        <span class="text-[15px]">โปรแกรมที่ใช้สำหรับเปิดดูเว็บไซต์ เช่น Chrome หรือ Safari</span>
+      </label>
+      <label class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
+        <input type="radio" name="q3" value="hardware" class="w-4 h-4 accent-[#111111]">
+        <span class="text-[15px]">อุปกรณ์ฮาร์ดแวร์ เช่น เมาส์ คีย์บอร์ด และจอภาพ</span>
+      </label>
+    </div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="bg-white border border-[#dddddd] rounded-xl p-7 mb-4">
+    <p class="mb-5 text-[18px] font-semibold leading-snug">4. โปรแกรมที่นิยมใช้เขียนโค้ดมากที่สุดในปัจจุบันคืออะไร?</p>
+    <div class="flex flex-col gap-3">
+      <label class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
+        <input type="radio" name="q4" value="Notepad" class="w-4 h-4 accent-[#111111]">
+        <span class="text-[15px]">Notepad++</span>
+      </label>
+      <label class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
+        <input type="radio" name="q4" value="Sublime" class="w-4 h-4 accent-[#111111]">
+        <span class="text-[15px]">Sublime Text</span>
+      </label>
+      <label class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
+        <input type="radio" name="q4" value="Vim" class="w-4 h-4 accent-[#111111]">
+        <span class="text-[15px]">Vim</span>
+      </label>
+      <label class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
+        <input type="radio" name="q4" value="VSCode" class="w-4 h-4 accent-[#111111]">
+        <span class="text-[15px]">Visual Studio Code</span>
+      </label>
+    </div>
+  </div>
+
+  <!-- Error msg -->
+  <div id="msg" class="hidden text-[13px] px-3.5 py-2.5 rounded-md mb-3 leading-relaxed bg-[#fdecea] text-[#c0392b]"></div>
+
+  <!-- Submit -->
+  <button onclick="submitAnswers()"
+    class="w-full py-4 bg-[#111111] text-white rounded-lg text-[15px] font-semibold cursor-pointer transition-all duration-150 hover:bg-[#333] active:scale-[0.98] mb-3">
+    ส่งคำตอบ →
+  </button>
+
+  <a href="index.html">
+    <button class="w-full py-4 bg-transparent text-[#111111] border-[1.5px] border-[#dddddd] rounded-lg text-[15px] font-semibold cursor-pointer transition-all duration-150 hover:border-[#111111]">
+      ← กลับหน้าแรก
+    </button>
+  </a>
+
+</div>
+<script>
+  // 🔴 เฉลยและตัวเลือก — แก้ได้ที่นี่
+  const QUESTIONS = [
+    {
+      name: "q1",
+      question: "ภาษาโปรแกรมมิ่งที่ถูกใช้งานมากที่สุดในโลกคือภาษาอะไร?",
+      correct: "Python",
+      choices: { "Html": "HTML", "Python": "Python", "JavaScript": "JavaScript", "C++": "C++" }
+    },
+    {
+      name: "q2",
+      question: "Front-end คืออะไร?",
+      correct: "ui",
+      choices: {
+        "database": "การจัดการระบบฐานข้อมูลและการจัดเก็บข้อมูลบน Server",
+        "ui": "ส่วนประกอบของเว็บไซต์ที่ผู้ใช้งานมองเห็นและโต้ตอบได้",
+        "logic": "การเขียน Logic หลังบ้านเพื่อคำนวณข้อมูลที่ซับซ้อน",
+        "api": "การเชื่อมต่อระหว่างระบบปฏิบัติการกับฮาร์ดแวร์คอมพิวเตอร์"
+      }
+    },
+    {
+      name: "q3",
+      question: "Back-end คืออะไร?",
+      correct: "logic",
+      choices: {
+        "design": "การออกแบบสีสันและ Layout ของเว็บไซต์ให้สวยงาม",
+        "logic": "ส่วนการประมวลผลของ Server, การจัดการฐานข้อมูล และ Logic หลังบ้าน",
+        "browser": "โปรแกรมที่ใช้สำหรับเปิดดูเว็บไซต์ เช่น Chrome หรือ Safari",
+        "hardware": "อุปกรณ์ฮาร์ดแวร์ เช่น เมาส์ คีย์บอร์ด และจอภาพ"
+      }
+    },
+    {
+      name: "q4",
+      question: "โปรแกรมที่นิยมใช้เขียนโค้ดมากที่สุดในปัจจุบันคืออะไร?",
+      correct: "VSCode",
+      choices: {
+        "Notepad": "Notepad++",
+        "Sublime": "Sublime Text",
+        "Vim": "Vim",
+        "VSCode": "Visual Studio Code"
+      }
+    }
+  ];
+
+  function submitAnswers() {
+    const results = [];
+    let allAnswered = true;
+
+    for (const q of QUESTIONS) {
+      const selected = document.querySelector(`input[name="${q.name}"]:checked`);
+      if (!selected) { allAnswered = false; break; }
+      results.push({
+        question: q.question,
+        correct: q.correct,
+        correctLabel: q.choices[q.correct],
+        selected: selected.value,
+        selectedLabel: q.choices[selected.value],
+        isCorrect: selected.value === q.correct
+      });
+    }
+
+    if (!allAnswered) {
+      const msg = document.getElementById('msg');
+      msg.textContent = 'กรุณาตอบคำถามให้ครบทุกข้อก่อนนะ';
+      msg.classList.remove('hidden');
+      return;
+    }
+
+    sessionStorage.setItem('qa_results', JSON.stringify(results));
+    window.location.href = 'qa_result.html';
+  }
+</script>
+</body>
 </html>
