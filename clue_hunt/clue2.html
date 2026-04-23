@@ -23,7 +23,6 @@
     <!-- Header -->
     <div class="mb-10 mx-auto text-center">
       <p class="font-mono text-[11px] text-gray-400 tracking-[3px] uppercase mb-2">คำใบ้ที่ 3 / 3</p>
-      <h1 class="text-[22px] font-semibold leading-snug tracking-tight">สำหรับคำใบ้ที่ 3 จะอยู่ใน Steam นะ เพราะงั้นก็รอเลข ID</h1>
     </div>
 
     <!-- Card -->
@@ -51,7 +50,8 @@
   </div>
   <script>
     // 🔴 แก้คำใบ้ที่ถูกต้องได้ที่นี่
-    const ANSWER = "Elden Lord";
+    const ANSWER_MAIN = "Elden Lord";       // → ไปหน้า final.html
+    const ANSWER_ALT  = "1264807688";       // → ไปยัง Steam Profile
 
     function checkClue() {
       const input = document.getElementById('input-clue2');
@@ -63,11 +63,20 @@
         return;
       }
 
-      if (val.toLowerCase() === ANSWER.toLowerCase()) {
+      if (val.toLowerCase() === ANSWER_MAIN.toLowerCase()) {
+        // เส้นทางที่ 1 → final.html
         input.classList.remove('error');
         input.classList.add('success');
         showMsg('✓ เก่งมาก! 🎉', 'success');
         setTimeout(() => window.location.href = 'final.html', 900);
+
+      } else if (val === ANSWER_ALT) {
+        // เส้นทางที่ 2 → Steam Profile
+        input.classList.remove('error');
+        input.classList.add('success');
+        showMsg('✓ เก่งมาก! 🎉', 'success');
+        setTimeout(() => window.location.href = 'https://steamcommunity.com/profiles/76561199225073416/' + ANSWER_ALT, 900);
+
       } else {
         input.classList.remove('success');
         input.classList.add('error');
