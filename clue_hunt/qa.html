@@ -14,8 +14,8 @@
   <!-- Header -->
   <div class="mb-8 text-center">
     <p class="font-semibold text-[28px] text-black tracking-tight mb-1">โหมดตอบคำถาม</p>
-    <p class="mb-5 text-[18px] font-semibold leading-snug">ไม่ต้องซีเรียสเรื่องคะแนนนะ เพราะมันเป็นแค่การวัดความรู้พื้นฐาน</p>
-    <p class="mb-5 text-[18px] text-red-700 font-semibold leading-snug">ถ้าทำเสร็จก็แคปคะแนนไว้ด้วย เผื่อพี่จะถาม</p>
+    <p class="mb-3 text-[16px] font-semibold leading-snug">ไม่ต้องซีเรียสเรื่องคะแนนนะ เพราะมันเป็นแค่การวัดความรู้พื้นฐาน</p>
+    <p class="text-[15px] text-red-600 font-semibold leading-snug">ถ้าทำเสร็จก็แคปคะแนนไว้ด้วย เผื่อพี่จะถาม</p>
   </div>
 
   <!-- Q1 -->
@@ -115,20 +115,135 @@
     <p class="mb-5 text-[18px] font-semibold leading-snug">5. Git คืออะไร?</p>
     <div class="flex flex-col gap-3">
       <label class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
-        <input type="radio" name="q5" value="Notepad" class="w-4 h-4 accent-[#111111]">
+        <input type="radio" name="q5" value="vcs" class="w-4 h-4 accent-[#111111]">
         <span class="text-[15px]">ระบบควบคุมเวอร์ชัน (Version Control) ที่บันทึกประวัติการแก้ไขโค้ด และช่วยให้ทำงานร่วมกันเป็นทีมได้</span>
       </label>
       <label class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
-        <input type="radio" name="q5" value="Sublime" class="w-4 h-4 accent-[#111111]">
+        <input type="radio" name="q5" value="cloud" class="w-4 h-4 accent-[#111111]">
         <span class="text-[15px]">บริการคลาวด์เซิร์ฟเวอร์ (Cloud) สำหรับฝากไฟล์และโชว์ผลงานโปรเจคของโปรแกรมเมอร์</span>
       </label>
       <label class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
-        <input type="radio" name="q5" value="Vim" class="w-4 h-4 accent-[#111111]">
+        <input type="radio" name="q5" value="pkg" class="w-4 h-4 accent-[#111111]">
         <span class="text-[15px]">เครื่องมือสำหรับดาวน์โหลดและจัดการ Library หรือ Package ต่างๆ ที่ต้องใช้ในโปรเจค</span>
       </label>
       <label class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
-        <input type="radio" name="q5" value="VSCode" class="w-4 h-4 accent-[#111111]">
+        <input type="radio" name="q5" value="deploy" class="w-4 h-4 accent-[#111111]">
         <span class="text-[15px]">ระบบอัตโนมัติที่ช่วยแปลงโค้ดและอัพโหลดเว็บไซต์ขึ้นไปบน Server (Deployment)</span>
+      </label>
+    </div>
+  </div>
+
+  <!-- Q6 -->
+  <div class="bg-white border border-[#dddddd] rounded-xl p-7 mb-4">
+    <p class="mb-5 text-[18px] font-semibold leading-snug">6. ข้อใดคือความหมายของ Algorithm?</p>
+    <div class="flex flex-col gap-3">
+      <label class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
+        <input type="radio" name="q6" value="language" class="w-4 h-4 accent-[#111111]">
+        <span class="text-[15px]">ภาษาที่ใช้สื่อสารระหว่างโปรแกรมเมอร์กับคอมพิวเตอร์</span>
+      </label>
+      <label class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
+        <input type="radio" name="q6" value="steps" class="w-4 h-4 accent-[#111111]">
+        <span class="text-[15px]">ขั้นตอนหรือวิธีการที่กำหนดไว้ชัดเจนเพื่อแก้ปัญหาหรือทำงานอย่างใดอย่างหนึ่งให้สำเร็จ</span>
+      </label>
+      <label class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
+        <input type="radio" name="q6" value="hardware" class="w-4 h-4 accent-[#111111]">
+        <span class="text-[15px]">ฮาร์ดแวร์ที่ใช้ประมวลผลข้อมูลภายในคอมพิวเตอร์</span>
+      </label>
+      <label class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
+        <input type="radio" name="q6" value="network" class="w-4 h-4 accent-[#111111]">
+        <span class="text-[15px]">โปรโตคอลที่ใช้รับส่งข้อมูลระหว่างอุปกรณ์ในเครือข่าย</span>
+      </label>
+    </div>
+  </div>
+
+  <!-- Q7 -->
+  <div class="bg-white border border-[#dddddd] rounded-xl p-7 mb-4">
+    <p class="mb-5 text-[18px] font-semibold leading-snug">7. ในการเขียนโปรแกรม "Variable" หรือตัวแปรคืออะไร?</p>
+    <div class="flex flex-col gap-3">
+      <label class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
+        <input type="radio" name="q7" value="func" class="w-4 h-4 accent-[#111111]">
+        <span class="text-[15px]">กลุ่มของคำสั่งที่ถูกรวบรวมไว้เพื่อเรียกใช้ซ้ำได้</span>
+      </label>
+      <label class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
+        <input type="radio" name="q7" value="storage" class="w-4 h-4 accent-[#111111]">
+        <span class="text-[15px]">ที่เก็บข้อมูลชั่วคราวในหน่วยความจำ สามารถเปลี่ยนแปลงค่าได้ระหว่างโปรแกรมทำงาน</span>
+      </label>
+      <label class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
+        <input type="radio" name="q7" value="loop" class="w-4 h-4 accent-[#111111]">
+        <span class="text-[15px]">คำสั่งที่ทำให้โปรแกรมวนซ้ำตามเงื่อนไขที่กำหนด</span>
+      </label>
+      <label class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
+        <input type="radio" name="q7" value="class" class="w-4 h-4 accent-[#111111]">
+        <span class="text-[15px]">โครงสร้างข้อมูลที่ใช้ในการเขียนโปรแกรมเชิงวัตถุ (OOP)</span>
+      </label>
+    </div>
+  </div>
+
+  <!-- Q8 -->
+  <div class="bg-white border border-[#dddddd] rounded-xl p-7 mb-4">
+    <p class="mb-5 text-[18px] font-semibold leading-snug">8. "Bug" ในโปรแกรมมิ่งหมายถึงอะไร?</p>
+    <div class="flex flex-col gap-3">
+      <label class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
+        <input type="radio" name="q8" value="feature" class="w-4 h-4 accent-[#111111]">
+        <span class="text-[15px]">ฟีเจอร์ใหม่ที่เพิ่มเข้ามาในโปรแกรม</span>
+      </label>
+      <label class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
+        <input type="radio" name="q8" value="comment" class="w-4 h-4 accent-[#111111]">
+        <span class="text-[15px]">คำอธิบายโค้ดที่โปรแกรมเมอร์เขียนเอาไว้อ่านเอง</span>
+      </label>
+      <label class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
+        <input type="radio" name="q8" value="update" class="w-4 h-4 accent-[#111111]">
+        <span class="text-[15px]">การอัปเดตโปรแกรมเพื่อปรับปรุงประสิทธิภาพ</span>
+      </label>
+      <label class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
+        <input type="radio" name="q8" value="error" class="w-4 h-4 accent-[#111111]">
+        <span class="text-[15px]">ข้อผิดพลาดในโค้ดที่ทำให้โปรแกรมทำงานไม่ถูกต้องหรือขัดข้อง</span>
+      </label>
+    </div>
+  </div>
+
+  <!-- Q9 -->
+  <div class="bg-white border border-[#dddddd] rounded-xl p-7 mb-4">
+    <p class="mb-5 text-[18px] font-semibold leading-snug">9. คำสั่ง if-else ใช้ทำอะไร?</p>
+    <div class="flex flex-col gap-3">
+      <label class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
+        <input type="radio" name="q9" value="condition" class="w-4 h-4 accent-[#111111]">
+        <span class="text-[15px]">ตรวจสอบเงื่อนไข แล้วเลือกทำงานในเส้นทางที่ต่างกันตามผลที่ได้</span>
+      </label>
+      <label class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
+        <input type="radio" name="q9" value="loop" class="w-4 h-4 accent-[#111111]">
+        <span class="text-[15px]">วนซ้ำคำสั่งจนกว่าจะครบจำนวนที่กำหนด</span>
+      </label>
+      <label class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
+        <input type="radio" name="q9" value="define" class="w-4 h-4 accent-[#111111]">
+        <span class="text-[15px]">ประกาศฟังก์ชันเพื่อนำไปใช้ภายหลัง</span>
+      </label>
+      <label class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
+        <input type="radio" name="q9" value="import" class="w-4 h-4 accent-[#111111]">
+        <span class="text-[15px]">นำ Library จากภายนอกเข้ามาใช้ในโปรแกรม</span>
+      </label>
+    </div>
+  </div>
+
+  <!-- Q10 -->
+  <div class="bg-white border border-[#dddddd] rounded-xl p-7 mb-4">
+    <p class="mb-5 text-[18px] font-semibold leading-snug">10. API ย่อมาจากอะไร และมีหน้าที่อะไร?</p>
+    <div class="flex flex-col gap-3">
+      <label class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
+        <input type="radio" name="q10" value="api" class="w-4 h-4 accent-[#111111]">
+        <span class="text-[15px]">Application Programming Interface — ตัวกลางที่ให้โปรแกรมต่างๆ สื่อสารและแลกเปลี่ยนข้อมูลกันได้</span>
+      </label>
+      <label class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
+        <input type="radio" name="q10" value="apu" class="w-4 h-4 accent-[#111111]">
+        <span class="text-[15px]">Automated Program Installer — ระบบที่ช่วยติดตั้งโปรแกรมโดยอัตโนมัติ</span>
+      </label>
+      <label class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
+        <input type="radio" name="q10" value="aps" class="w-4 h-4 accent-[#111111]">
+        <span class="text-[15px]">Advanced Programming Interface — ระบบขั้นสูงสำหรับโปรแกรมเมอร์มืออาชีพ</span>
+      </label>
+      <label class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
+        <input type="radio" name="q10" value="apr" class="w-4 h-4 accent-[#111111]">
+        <span class="text-[15px]">Application Protocol Router — อุปกรณ์ที่ใช้กำหนดเส้นทางของข้อมูลในเครือข่าย</span>
       </label>
     </div>
   </div>
@@ -150,7 +265,6 @@
 
 </div>
 <script>
-  // 🔴 เฉลยและตัวเลือก — แก้ได้ที่นี่
   const QUESTIONS = [
     {
       name: "q1",
@@ -194,12 +308,67 @@
     {
       name: "q5",
       question: "Git คืออะไร?",
-      correct: "Notepad",
+      correct: "vcs",
       choices: {
-        "Notepad": "ระบบควบคุมเวอร์ชัน (Version Control) ที่บันทึกประวัติการแก้ไขโค้ด และช่วยให้ทำงานร่วมกันเป็นทีมได้",
-        "Sublime": "บริการคลาวด์เซิร์ฟเวอร์ (Cloud) สำหรับฝากไฟล์และโชว์ผลงานโปรเจคของโปรแกรมเมอร์",
-        "Vim": "เครื่องมือสำหรับดาวน์โหลดและจัดการ Library หรือ Package ต่างๆ ที่ต้องใช้ในโปรเจค",
-        "VSCode": "ระบบอัตโนมัติที่ช่วยแปลงโค้ดและอัพโหลดเว็บไซต์ขึ้นไปบน Server (Deployment)"
+        "vcs": "ระบบควบคุมเวอร์ชัน (Version Control) ที่บันทึกประวัติการแก้ไขโค้ด และช่วยให้ทำงานร่วมกันเป็นทีมได้",
+        "cloud": "บริการคลาวด์เซิร์ฟเวอร์ (Cloud) สำหรับฝากไฟล์และโชว์ผลงานโปรเจคของโปรแกรมเมอร์",
+        "pkg": "เครื่องมือสำหรับดาวน์โหลดและจัดการ Library หรือ Package ต่างๆ ที่ต้องใช้ในโปรเจค",
+        "deploy": "ระบบอัตโนมัติที่ช่วยแปลงโค้ดและอัพโหลดเว็บไซต์ขึ้นไปบน Server (Deployment)"
+      }
+    },
+    {
+      name: "q6",
+      question: "ข้อใดคือความหมายของ Algorithm?",
+      correct: "steps",
+      choices: {
+        "language": "ภาษาที่ใช้สื่อสารระหว่างโปรแกรมเมอร์กับคอมพิวเตอร์",
+        "steps": "ขั้นตอนหรือวิธีการที่กำหนดไว้ชัดเจนเพื่อแก้ปัญหาหรือทำงานอย่างใดอย่างหนึ่งให้สำเร็จ",
+        "hardware": "ฮาร์ดแวร์ที่ใช้ประมวลผลข้อมูลภายในคอมพิวเตอร์",
+        "network": "โปรโตคอลที่ใช้รับส่งข้อมูลระหว่างอุปกรณ์ในเครือข่าย"
+      }
+    },
+    {
+      name: "q7",
+      question: "ในการเขียนโปรแกรม \"Variable\" หรือตัวแปรคืออะไร?",
+      correct: "storage",
+      choices: {
+        "func": "กลุ่มของคำสั่งที่ถูกรวบรวมไว้เพื่อเรียกใช้ซ้ำได้",
+        "storage": "ที่เก็บข้อมูลชั่วคราวในหน่วยความจำ สามารถเปลี่ยนแปลงค่าได้ระหว่างโปรแกรมทำงาน",
+        "loop": "คำสั่งที่ทำให้โปรแกรมวนซ้ำตามเงื่อนไขที่กำหนด",
+        "class": "โครงสร้างข้อมูลที่ใช้ในการเขียนโปรแกรมเชิงวัตถุ (OOP)"
+      }
+    },
+    {
+      name: "q8",
+      question: "\"Bug\" ในโปรแกรมมิ่งหมายถึงอะไร?",
+      correct: "error",
+      choices: {
+        "feature": "ฟีเจอร์ใหม่ที่เพิ่มเข้ามาในโปรแกรม",
+        "comment": "คำอธิบายโค้ดที่โปรแกรมเมอร์เขียนเอาไว้อ่านเอง",
+        "update": "การอัปเดตโปรแกรมเพื่อปรับปรุงประสิทธิภาพ",
+        "error": "ข้อผิดพลาดในโค้ดที่ทำให้โปรแกรมทำงานไม่ถูกต้องหรือขัดข้อง"
+      }
+    },
+    {
+      name: "q9",
+      question: "คำสั่ง if-else ใช้ทำอะไร?",
+      correct: "condition",
+      choices: {
+        "condition": "ตรวจสอบเงื่อนไข แล้วเลือกทำงานในเส้นทางที่ต่างกันตามผลที่ได้",
+        "loop": "วนซ้ำคำสั่งจนกว่าจะครบจำนวนที่กำหนด",
+        "define": "ประกาศฟังก์ชันเพื่อนำไปใช้ภายหลัง",
+        "import": "นำ Library จากภายนอกเข้ามาใช้ในโปรแกรม"
+      }
+    },
+    {
+      name: "q10",
+      question: "API ย่อมาจากอะไร และมีหน้าที่อะไร?",
+      correct: "api",
+      choices: {
+        "api": "Application Programming Interface — ตัวกลางที่ให้โปรแกรมต่างๆ สื่อสารและแลกเปลี่ยนข้อมูลกันได้",
+        "apu": "Automated Program Installer — ระบบที่ช่วยติดตั้งโปรแกรมโดยอัตโนมัติ",
+        "aps": "Advanced Programming Interface — ระบบขั้นสูงสำหรับโปรแกรมเมอร์มืออาชีพ",
+        "apr": "Application Protocol Router — อุปกรณ์ที่ใช้กำหนดเส้นทางของข้อมูลในเครือข่าย"
       }
     }
   ];
@@ -232,3 +401,5 @@
     window.location.href = 'qa_result.html';
   }
 </script>
+</body>
+</html>

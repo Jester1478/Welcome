@@ -1,95 +1,428 @@
 <!DOCTYPE html>
 <html lang="th">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>สายรหัส — ผลคะแนน</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="style.css">
+  <link
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap"
+    rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'IBM Plex Sans Thai', sans-serif;
+      background: #f5f4f0;
+    }
+
+    .score-ring {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      background: conic-gradient(#111111 var(--pct), #e5e5e5 0deg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .score-ring::before {
+      content: '';
+      position: absolute;
+      width: 108px;
+      height: 108px;
+      background: #f5f4f0;
+      border-radius: 50%;
+    }
+
+    .score-inner {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(16px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-up {
+      opacity: 0;
+      animation: fadeUp 0.4s ease forwards;
+    }
+
+    .choice-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .choice-row.correct-answer {
+      background: #f0faf4;
+      border: 1.5px solid #22c55e;
+    }
+
+    .choice-row.wrong-selected {
+      background: #fff5f5;
+      border: 1.5px solid #ef4444;
+    }
+
+    .choice-row.neutral {
+      background: #fafafa;
+      border: 1.5px solid #eeeeee;
+      color: #888;
+    }
+
+    .badge {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 99px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .badge-correct {
+      background: #22c55e;
+      color: white;
+    }
+
+    .badge-wrong {
+      background: #ef4444;
+      color: white;
+    }
+
+    .badge-answer {
+      background: #111;
+      color: white;
+    }
+
+    .q-card {
+      background: white;
+      border: 1.5px solid #e5e5e5;
+      border-radius: 14px;
+      padding: 22px 22px 18px;
+      margin-bottom: 12px;
+    }
+
+    .q-card.is-correct {
+      border-color: #86efac;
+    }
+
+    .q-card.is-wrong {
+      border-color: #fca5a5;
+    }
+
+    .q-num {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      font-weight: 600;
+      color: #888;
+      letter-spacing: 0.05em;
+      margin-bottom: 6px;
+    }
+
+    .q-text {
+      font-size: 16px;
+      font-weight: 600;
+      color: #111;
+      margin-bottom: 14px;
+      line-height: 1.45;
+    }
+
+    .result-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .result-icon.correct {
+      background: #dcfce7;
+      color: #16a34a;
+    }
+
+    .result-icon.wrong {
+      background: #fee2e2;
+      color: #dc2626;
+    }
+
+    .summary-bar {
+      display: flex;
+      background: #e5e5e5;
+      border-radius: 99px;
+      height: 8px;
+      overflow: hidden;
+      margin-top: 6px;
+    }
+
+    .summary-bar-fill {
+      background: #111;
+      border-radius: 99px;
+      transition: width 1s ease 0.5s;
+    }
+  </style>
 </head>
-<body class="bg-[#f5f4f0] text-[#111111] min-h-screen flex flex-col items-center justify-center px-6 py-8">
 
-<div class="w-full max-w-lg fade-in">
+<body class="min-h-screen px-5 py-10">
 
-  <!-- Score card -->
-  <div class="bg-white border border-[#dddddd] rounded-xl p-7 mb-6 text-center">
-    <p class="font-mono text-[11px] text-gray-400 tracking-[3px] uppercase mb-3">ผลคะแนน</p>
-    <div id="score-display" class="text-[52px] font-semibold tracking-tight leading-none mb-2">—</div>
-    <p id="score-label" class="text-[15px] text-gray-400 font-light"></p>
+  <div class="w-full max-w-lg mx-auto" id="app">
+    <div style="text-align:center;padding:80px 0;opacity:.4">
+      <p style="font-size:15px">กำลังโหลดผลคะแนน...</p>
+    </div>
   </div>
 
-  <!-- Review section -->
-  <p class="font-mono text-[11px] text-gray-400 tracking-[3px] uppercase mb-3">ดูเฉลย</p>
-  <div id="review-list" class="flex flex-col gap-4 mb-6"></div>
+  <script>
+    const QUESTIONS = [
+      {
+        name: "q1", question: "ภาษาโปรแกรมมิ่งที่ถูกใช้งานมากที่สุดในโลกคือภาษาอะไร?",
+        correct: "Python",
+        choices: { "Html": "HTML", "Python": "Python", "JavaScript": "JavaScript", "C++": "C++" }
+      },
+      {
+        name: "q2", question: "Front-end คืออะไร?",
+        correct: "ui",
+        choices: {
+          "database": "การจัดการระบบฐานข้อมูลและการจัดเก็บข้อมูลบน Server",
+          "ui": "ส่วนประกอบของเว็บไซต์ที่ผู้ใช้งานมองเห็นและโต้ตอบได้",
+          "logic": "การเขียน Logic หลังบ้านเพื่อคำนวณข้อมูลที่ซับซ้อน",
+          "api": "การเชื่อมต่อระหว่างระบบปฏิบัติการกับฮาร์ดแวร์คอมพิวเตอร์"
+        }
+      },
+      {
+        name: "q3", question: "Back-end คืออะไร?",
+        correct: "logic",
+        choices: {
+          "design": "การออกแบบสีสันและ Layout ของเว็บไซต์ให้สวยงาม",
+          "logic": "ส่วนการประมวลผลของ Server, การจัดการฐานข้อมูล และ Logic หลังบ้าน",
+          "browser": "โปรแกรมที่ใช้สำหรับเปิดดูเว็บไซต์ เช่น Chrome หรือ Safari",
+          "hardware": "อุปกรณ์ฮาร์ดแวร์ เช่น เมาส์ คีย์บอร์ด และจอภาพ"
+        }
+      },
+      {
+        name: "q4", question: "โปรแกรมที่นิยมใช้เขียนโค้ดมากที่สุดในปัจจุบันคืออะไร?",
+        correct: "VSCode",
+        choices: { "Notepad": "Notepad++", "Sublime": "Sublime Text", "Codepen": "Codepen", "VSCode": "Visual Studio Code" }
+      },
+      {
+        name: "q5", question: "Git คืออะไร?",
+        correct: "vcs",
+        choices: {
+          "vcs": "ระบบควบคุมเวอร์ชัน (Version Control) ที่บันทึกประวัติการแก้ไขโค้ด และช่วยให้ทำงานร่วมกันเป็นทีมได้",
+          "cloud": "บริการคลาวด์เซิร์ฟเวอร์ (Cloud) สำหรับฝากไฟล์และโชว์ผลงานโปรเจคของโปรแกรมเมอร์",
+          "pkg": "เครื่องมือสำหรับดาวน์โหลดและจัดการ Library หรือ Package ต่างๆ ที่ต้องใช้ในโปรเจค",
+          "deploy": "ระบบอัตโนมัติที่ช่วยแปลงโค้ดและอัพโหลดเว็บไซต์ขึ้นไปบน Server (Deployment)"
+        }
+      },
+      {
+        name: "q6", question: "ข้อใดคือความหมายของ Algorithm?",
+        correct: "steps",
+        choices: {
+          "language": "ภาษาที่ใช้สื่อสารระหว่างโปรแกรมเมอร์กับคอมพิวเตอร์",
+          "steps": "ขั้นตอนหรือวิธีการที่กำหนดไว้ชัดเจนเพื่อแก้ปัญหาหรือทำงานอย่างใดอย่างหนึ่งให้สำเร็จ",
+          "hardware": "ฮาร์ดแวร์ที่ใช้ประมวลผลข้อมูลภายในคอมพิวเตอร์",
+          "network": "โปรโตคอลที่ใช้รับส่งข้อมูลระหว่างอุปกรณ์ในเครือข่าย"
+        }
+      },
+      {
+        name: "q7", question: 'ในการเขียนโปรแกรม "Variable" หรือตัวแปรคืออะไร?',
+        correct: "storage",
+        choices: {
+          "func": "กลุ่มของคำสั่งที่ถูกรวบรวมไว้เพื่อเรียกใช้ซ้ำได้",
+          "storage": "ที่เก็บข้อมูลชั่วคราวในหน่วยความจำ สามารถเปลี่ยนแปลงค่าได้ระหว่างโปรแกรมทำงาน",
+          "loop": "คำสั่งที่ทำให้โปรแกรมวนซ้ำตามเงื่อนไขที่กำหนด",
+          "class": "โครงสร้างข้อมูลที่ใช้ในการเขียนโปรแกรมเชิงวัตถุ (OOP)"
+        }
+      },
+      {
+        name: "q8", question: '"Bug" ในโปรแกรมมิ่งหมายถึงอะไร?',
+        correct: "error",
+        choices: {
+          "feature": "ฟีเจอร์ใหม่ที่เพิ่มเข้ามาในโปรแกรม",
+          "comment": "คำอธิบายโค้ดที่โปรแกรมเมอร์เขียนเอาไว้อ่านเอง",
+          "update": "การอัปเดตโปรแกรมเพื่อปรับปรุงประสิทธิภาพ",
+          "error": "ข้อผิดพลาดในโค้ดที่ทำให้โปรแกรมทำงานไม่ถูกต้องหรือขัดข้อง"
+        }
+      },
+      {
+        name: "q9", question: "คำสั่ง if-else ใช้ทำอะไร?",
+        correct: "condition",
+        choices: {
+          "condition": "ตรวจสอบเงื่อนไข แล้วเลือกทำงานในเส้นทางที่ต่างกันตามผลที่ได้",
+          "loop": "วนซ้ำคำสั่งจนกว่าจะครบจำนวนที่กำหนด",
+          "define": "ประกาศฟังก์ชันเพื่อนำไปใช้ภายหลัง",
+          "import": "นำ Library จากภายนอกเข้ามาใช้ในโปรแกรม"
+        }
+      },
+      {
+        name: "q10", question: "API ย่อมาจากอะไร และมีหน้าที่อะไร?",
+        correct: "api",
+        choices: {
+          "api": "Application Programming Interface — ตัวกลางที่ให้โปรแกรมต่างๆ สื่อสารและแลกเปลี่ยนข้อมูลกันได้",
+          "apu": "Automated Program Installer — ระบบที่ช่วยติดตั้งโปรแกรมโดยอัตโนมัติ",
+          "aps": "Advanced Programming Interface — ระบบขั้นสูงสำหรับโปรแกรมเมอร์มืออาชีพ",
+          "apr": "Application Protocol Router — อุปกรณ์ที่ใช้กำหนดเส้นทางของข้อมูลในเครือข่าย"
+        }
+      }
+    ];
 
-  <!-- Actions -->
-  <button onclick="window.location.href='qa2.html'"
-    class="w-full py-4 bg-[#111111] text-white rounded-lg text-[15px] font-semibold cursor-pointer transition-all duration-150 hover:bg-[#333] active:scale-[0.98] mb-3">
-    ถัดไป
-  </button>
-  <a href="index.html">
-    <button class="w-full py-4 bg-transparent text-[#111111] border-[1.5px] border-[#dddddd] rounded-lg text-[15px] font-semibold cursor-pointer transition-all duration-150 hover:border-[#111111]">
-      ← กลับหน้าแรก
-    </button>
-  </a>
+    function getScoreLabel(score, total) {
+      const pct = score / total;
+      if (pct === 1) return { label: "เพอร์เฟกต์! 🎉", sub: "ได้คะแนนเต็มทุกข้อเลย" };
+      if (pct >= 0.8) return { label: "ดีมาก! 👏", sub: "ความรู้พื้นฐานแน่นมาก" };
+      if (pct >= 0.6) return { label: "ผ่านฉลุย 👍", sub: "พอมีพื้นฐานบ้างแล้ว" };
+      if (pct >= 0.4) return { label: "พอไหวนะ 🙂", sub: "ยังมีอีกหลายข้อที่ต้องทบทวน" };
+      return { label: "ยังต้องฝึกอีกนะ 💪", sub: "ไม่เป็นไร เริ่มต้นจากศูนย์ได้เสมอ" };
+    }
 
-</div>
-<script>
-  const raw = sessionStorage.getItem('qa_results');
+    function render(results) {
+      const total = QUESTIONS.length;
+      const score = results ? results.filter(r => r.isCorrect).length : 0;
+      const pct = Math.round((score / total) * 100);
+      const ringDeg = Math.round((score / total) * 360);
+      const { label, sub } = getScoreLabel(score, total);
 
-  // ป้องกันคนเข้าหน้านี้ตรงๆ โดยไม่ผ่าน qa.html
-  if (!raw) {
-    window.location.href = 'qa.html';
-  }
+      const questionsHTML = QUESTIONS.map((q, idx) => {
+        const result = results ? results.find(r => r.question === q.question) : null;
+        const selected = result ? result.selected : null;
+        const isCorrect = result ? result.isCorrect : null;
 
-  const results = JSON.parse(raw);
-  const total   = results.length;
-  const score   = results.filter(r => r.isCorrect).length;
+        const cardClass = isCorrect === true ? 'is-correct' : isCorrect === false ? 'is-wrong' : '';
+        const iconClass = isCorrect === true ? 'correct' : 'wrong';
+        const iconChar = isCorrect === true ? '✓' : '✕';
 
-  // แสดงคะแนน
-  document.getElementById('score-display').textContent = `${score}/${total}`;
-  const label = document.getElementById('score-label');
-  if (score === total) {
-    label.textContent = 'เก่งมาก! ตอบถูกหมดเลย 🎉';
-    label.classList.add('text-[#2d6a4f]');
-  } else if (score === 0) {
-    label.textContent = 'ลองอีกครั้งนะ สู้ๆ 💪';
-    label.classList.add('text-[#c0392b]');
-  } else {
-    label.textContent = `ตอบถูก ${score} ข้อ จาก ${total} ข้อ`;
-  }
+        const choicesHTML = Object.entries(q.choices).map(([val, lbl]) => {
+          const isAnswer = val === q.correct;
+          const isSelected = val === selected;
 
-  // แสดงเฉลยแต่ละข้อ
-  const reviewList = document.getElementById('review-list');
-  results.forEach((r, i) => {
-    const div = document.createElement('div');
-    div.className = 'bg-white border border-[#dddddd] rounded-xl p-6';
-    div.innerHTML = `
-      <p class="text-[14px] font-semibold mb-4 leading-snug">${i + 1}. ${r.question}</p>
+          let rowClass = 'neutral';
+          let badge = '';
 
-      <!-- คำตอบของน้อง -->
-      <div class="flex items-start gap-3 mb-2 p-3 rounded-lg ${r.isCorrect ? 'bg-[#e9f5ee]' : 'bg-[#fdecea]'}">
-        <span class="text-[16px] mt-0.5">${r.isCorrect ? '✓' : '✗'}</span>
-        <div>
-          <p class="text-[11px] font-mono uppercase tracking-wider ${r.isCorrect ? 'text-[#2d6a4f]' : 'text-[#c0392b]'} mb-0.5">
-            คำตอบของน้อง
-          </p>
-          <p class="text-[14px] ${r.isCorrect ? 'text-[#2d6a4f]' : 'text-[#c0392b]'} font-medium">${r.selectedLabel}</p>
+          if (isAnswer && isSelected) {
+            rowClass = 'correct-answer';
+            badge = '<span class="badge badge-correct">✓ ถูก</span>';
+          } else if (!isAnswer && isSelected) {
+            rowClass = 'wrong-selected';
+            badge = '<span class="badge badge-wrong">✕ ผิด</span>';
+          } else if (isAnswer) {
+            rowClass = 'correct-answer';
+            badge = results ? '<span class="badge badge-answer">เฉลย</span>' : '<span class="badge badge-answer">เฉลย</span>';
+          }
+
+          return `<div class="choice-row ${rowClass}"><div style="flex:1">${lbl}</div>${badge}</div>`;
+        }).join('');
+
+        const delayS = (0.05 * idx + 0.45).toFixed(2);
+
+        return `
+      <div class="q-card ${cardClass} fade-up" style="animation-delay:${delayS}s">
+        <div style="display:flex;align-items:flex-start;gap:10px">
+          <div style="flex:1">
+            <div class="q-num">ข้อ ${idx + 1}</div>
+            <div class="q-text">${q.question}</div>
+          </div>
+          ${result !== null ? `<div class="result-icon ${iconClass}" style="margin-top:2px">${iconChar}</div>` : ''}
+        </div>
+        <div style="display:flex;flex-direction:column;gap:7px">${choicesHTML}</div>
+      </div>`;
+      }).join('');
+
+      document.getElementById('app').innerHTML = `
+    <div class="fade-up" style="animation-delay:.05s;text-align:center;margin-bottom:28px">
+      <p style="font-size:12px;font-weight:600;letter-spacing:.1em;color:#aaa;text-transform:uppercase;margin-bottom:4px">สายรหัส</p>
+      <p style="font-size:22px;font-weight:700;color:#111;margin-bottom:2px">ผลการทำแบบทดสอบ</p>
+      <p style="font-size:14px;color:#777">ดูเฉลยแต่ละข้อได้ด้านล่าง</p>
+    </div>
+
+    <div class="fade-up" style="animation-delay:.15s;background:white;border:1.5px solid #e5e5e5;border-radius:18px;padding:28px 22px;margin-bottom:20px">
+      <div style="display:flex;align-items:center;gap:24px;flex-wrap:wrap">
+        <div class="score-ring" style="--pct:${ringDeg}deg">
+          <div class="score-inner">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:30px;font-weight:600;color:#111;line-height:1">${score}</div>
+            <div style="font-size:13px;color:#aaa;margin-top:2px">/ ${total}</div>
+          </div>
+        </div>
+        <div style="flex:1;min-width:140px">
+          <div style="font-size:20px;font-weight:700;color:#111;margin-bottom:2px">${label}</div>
+          <div style="font-size:14px;color:#777;margin-bottom:14px">${sub}</div>
+          <div style="display:flex;justify-content:space-between;font-size:13px;font-weight:600;color:#111;margin-bottom:4px">
+            <span>คะแนน</span>
+            <span style="font-family:'IBM Plex Mono',monospace">${pct}%</span>
+          </div>
+          <div class="summary-bar">
+            <div class="summary-bar-fill" style="width:${pct}%"></div>
+          </div>
+          <div style="display:flex;gap:16px;margin-top:10px;font-size:13px">
+            <span style="color:#16a34a;font-weight:600">✓ ถูก ${score} ข้อ</span>
+            <span style="color:#dc2626;font-weight:600">✕ ผิด ${total - score} ข้อ</span>
+          </div>
         </div>
       </div>
+    </div>
 
-      <!-- เฉลย (แสดงเฉพาะตอนตอบผิด) -->
-      ${!r.isCorrect ? `
-      <div class="flex items-start gap-3 p-3 rounded-lg bg-[#e9f5ee]">
-        <span class="text-[16px] mt-0.5">💡</span>
-        <div>
-          <p class="text-[11px] font-mono uppercase tracking-wider text-[#2d6a4f] mb-0.5">เฉลย</p>
-          <p class="text-[14px] text-[#2d6a4f] font-medium">${r.correctLabel}</p>
-        </div>
-      </div>` : ''}
-    `;
-    reviewList.appendChild(div);
-  });
-</script>
+    <div class="fade-up" style="animation-delay:.28s;display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px">
+      <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:#555">
+        <div style="width:14px;height:14px;border-radius:3px;background:#f0faf4;border:1.5px solid #22c55e"></div>
+        <span>ตอบถูก / เฉลย</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:#555">
+        <div style="width:14px;height:14px;border-radius:3px;background:#fff5f5;border:1.5px solid #ef4444"></div>
+        <span>ตอบผิด</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:#555">
+        <div style="width:14px;height:14px;border-radius:3px;background:#fafafa;border:1.5px solid #eee"></div>
+        <span>ตัวเลือกอื่น</span>
+      </div>
+    </div>
+
+    ${questionsHTML}
+
+      <button onclick="window.location.href='qa2.html'"
+        class="w-full py-4 bg-[#111111] text-white rounded-lg text-[15px] font-semibold cursor-pointer transition-all duration-150 hover:bg-[#333] active:scale-[0.98] mb-3">
+        ถัดไป
+      </button>
+      <a href="index.html">
+        <button class="w-full py-4 bg-transparent text-[#111111] border-[1.5px] border-[#dddddd] rounded-lg text-[15px] font-semibold cursor-pointer transition-all duration-150 hover:border-[#111111]">
+          ← กลับหน้าแรก
+        </button>
+      </a>
+    </div>
+  `;
+    }
+
+
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const raw = sessionStorage.getItem('qa_results');
+      if (raw) {
+        try { render(JSON.parse(raw)); }
+        catch (e) { render(null); }
+      } else {
+        render(null);
+      }
+    });
+  </script>
 </body>
+
 </html>

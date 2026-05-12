@@ -23,8 +23,6 @@
     <!-- Header -->
     <div class="mb-10 mx-auto text-center">
       <p class="font-mono text-[11px] text-gray-400 tracking-[3px] uppercase mb-2">คำใบ้ที่ 2 / 3</p>
-      <h1 class="text-[22px] font-semibold leading-snug tracking-tight">น้องไม่อยากไปเล่นเกมตอบคำถามหน่อยหรอ
-        จะได้ไม่ต้องเสียเวลามากรอกคำใบ้</h1>
     </div>
 
     <!-- Card -->
@@ -51,7 +49,7 @@
   </div>
   <script>
     // 🔴 แก้คำใบ้ที่ถูกต้องได้ที่นี่
-    const ANSWER = "พี่มีออมนิทริกส์";
+    const ANSWER = "พี่มีนาฬิกา";
 
     function checkClue() {
       const input = document.getElementById('input-clue1');
@@ -67,12 +65,12 @@
       if (val.toLowerCase() === ANSWER.toLowerCase()) {
         input.classList.remove('error');
         input.classList.add('success');
-        showMsg('✓ เก่งมาก! ไปคำใบ้ต่อไปดีกว่า...', 'success');
+        showMsg('ถูกต้อง', 'success');
         setTimeout(() => window.location.href = 'clue2.html', 900);
       } else {
         input.classList.remove('success');
         input.classList.add('error');
-        showMsg('✗ เอ๊ะ! เหมือนจะยังไม่ถูกนะ', 'error');
+        showMsg('ลองใหม่อีกครั้งนะ', 'error');
       }
     }
 
