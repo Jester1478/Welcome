@@ -398,7 +398,12 @@
     }
 
     sessionStorage.setItem('qa_results', JSON.stringify(results));
-    window.location.href = 'qa_result.html';
+    const score = results.filter(r => r.isCorrect).length;
+    if (score === QUESTIONS.length) {
+      window.location.href = 'qa_perfect.html';
+    } else {
+      window.location.href = 'qa_result.html';
+    }
   }
 </script>
 </body>

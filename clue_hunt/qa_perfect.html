@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>สายรหัส — เพอร์เฟกต์!</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700&display=swap"
+    rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'IBM Plex Sans Thai', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ── Confetti ── */
+    @keyframes fall {
+      0% {
+        transform: translateY(-60px) rotate(0deg);
+        opacity: 1;
+      }
+
+      100% {
+        transform: translateY(110vh) rotate(720deg);
+        opacity: 0;
+      }
+    }
+
+    .confetti-piece {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+      animation: fall linear infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── Score ring ── */
+    .score-ring {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      background: conic-gradient(#111 360deg, #e5e5e5 0deg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      filter: drop-shadow(0 8px 24px rgba(0, 0, 0, .12));
+    }
+
+    .score-ring::before {
+      content: '';
+      position: absolute;
+      width: 124px;
+      height: 124px;
+      background: #f5f4f0;
+      border-radius: 50%;
+    }
+
+    .score-inner {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-up {
+      opacity: 0;
+      animation: fadeUp 0.5s ease forwards;
+    }
+
+    @keyframes popIn {
+      0% {
+        transform: scale(0.6);
+        opacity: 0;
+      }
+
+      70% {
+        transform: scale(1.08);
+      }
+
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    .pop-in {
+      animation: popIn 0.6s cubic-bezier(.34, 1.56, .64, 1) forwards;
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0px);
+      }
+
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    .float {
+      animation: float 3s ease-in-out infinite;
+    }
+
+    /* ── Stars sparkle ── */
+    @keyframes sparkle {
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+      }
+
+      50% {
+        opacity: .4;
+        transform: scale(0.7) rotate(20deg);
+      }
+    }
+
+    .star {
+      animation: sparkle ease-in-out infinite;
+    }
+
+    /* ── Glow pulse ── */
+    @keyframes glowPulse {
+
+      0%,
+      100% {
+        box-shadow: 0 0 0 0 rgba(251, 191, 36, .3);
+      }
+
+      50% {
+        box-shadow: 0 0 0 16px rgba(251, 191, 36, 0);
+      }
+    }
+
+    .glow-pulse {
+      animation: glowPulse 2s ease-in-out infinite;
+    }
+  </style>
+</head>
+
+<body class="bg-[#f5f4f0] text-[#111] min-h-screen flex flex-col items-center justify-center px-6 py-12 relative">
+
+  <!-- Confetti container (JS will populate) -->
+  <div id="confetti-container"></div>
+    <div class="w-full max-w-md text-center relative z-10"></div>
+  </div>
+
+  <!-- Score ring -->
+  <div class="flex justify-center mb-6 fade-up pop-in" style="animation-delay:.2s">
+    <div class="score-ring">
+      <div class="score-inner">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:32px;font-weight:700;color:#111;line-height:1">10
+        </div>
+        <div style="font-size:13px;color:#999;margin-top:1px">-----</div>
+        <div style="font-size:13px;color:#999;margin-top:1px">10</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- picture -->
+  <div class="w-150 h-150 rounded-[10px] border-2 border-[#dddddd] overflow-hidden bg-[#e8e6e0] mb-6">
+    <!-- 🔴 เปลี่ยน URL ด้านล่างเป็นรูป IG ของคุณ -->
+    <img src="Picture/Moh.jpg" alt="Profile" class="w-full h-full object-cover" />
+  </div>
+
+  <!-- Heading -->
+  <div class="fade-up" style="animation-delay:.35s">
+    <p style="font-size:13px;font-weight:600;letter-spacing:.1em;color:#aaa;text-transform:uppercase;margin-bottom:6px">
+      สายรหัส</p>
+    <h1 style="font-size:30px;font-weight:700;color:#111;line-height:1.2;margin-bottom:8px">
+      เพอร์เฟกต์เลย! 🎉
+    </h1>
+    <p style="font-size:16px;color:#444;line-height:1.6;margin-bottom:6px">
+      ได้คะแนนเต็ม <strong>10 จาก 10</strong> ข้อ
+    </p>
+    <!-- <p style="font-size:14px;color:#777;line-height:1.6;margin-bottom:28px">
+      ความรู้พื้นฐานแน่นมาก — พี่จะนัดคุยกับเธอเร็วๆ นี้นะ 👌
+    </p> -->
+  </div>
+
+  <!-- Back button -->
+  <div class="fade-up" style="animation-delay:.65s">
+    <a href="qa.html">
+      <button
+        style="width:100%;padding:14px;background:transparent;color:#111;border:1.5px solid #ddd;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer;font-family:inherit;transition:border-color .15s"
+        onmouseover="this.style.borderColor='#111'" onmouseout="this.style.borderColor='#ddd'">
+        ← ทำแบบทดสอบอีกครั้ง
+      </button>
+    </a>
+  </div>
+
+  </div>
+
+  <script>
+    // ── Confetti ──────────────────────────────────────────
+    const colors = ['#fbbf24', '#34d399', '#60a5fa', '#f87171', '#a78bfa', '#fb923c', '#4ade80'];
+    const container = document.getElementById('confetti-container');
+
+    for (let i = 0; i < 55; i++) {
+      const el = document.createElement('div');
+      el.className = 'confetti-piece';
+      const size = Math.random() * 8 + 6;
+      el.style.cssText = `
+    left: ${Math.random() * 100}vw;
+    width: ${size}px;
+    height: ${size}px;
+    background: ${colors[Math.floor(Math.random() * colors.length)]};
+    animation-duration: ${Math.random() * 3 + 2.5}s;
+    animation-delay: ${Math.random() * 2}s;
+    border-radius: ${Math.random() > 0.5 ? '50%' : '2px'};
+    opacity: ${Math.random() * 0.6 + 0.4};
+  `;
+      container.appendChild(el);
+    }
+  </script>
+</body>
+
+</html>
