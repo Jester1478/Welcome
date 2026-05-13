@@ -10,15 +10,12 @@
     href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap"
     rel="stylesheet">
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
     body {
       font-family: 'IBM Plex Sans Thai', sans-serif;
       background: #f5f4f0;
     }
 
+    /* score-ring ใช้ conic-gradient + ::before pseudo-element → ต้องเก็บไว้ใน CSS */
     .score-ring {
       width: 140px;
       height: 140px;
@@ -29,7 +26,6 @@
       justify-content: center;
       position: relative;
     }
-
     .score-ring::before {
       content: '';
       position: absolute;
@@ -38,149 +34,26 @@
       background: #f5f4f0;
       border-radius: 50%;
     }
-
     .score-inner {
       position: relative;
       z-index: 1;
       text-align: center;
     }
 
-    @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(16px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .fade-up {
-      opacity: 0;
-      animation: fadeUp 0.4s ease forwards;
-    }
-
-    .choice-row {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      padding: 10px 12px;
-      border-radius: 8px;
-      font-size: 14px;
-      line-height: 1.5;
-    }
-
-    .choice-row.correct-answer {
-      background: #f0faf4;
-      border: 1.5px solid #22c55e;
-    }
-
-    .choice-row.wrong-selected {
-      background: #fff5f5;
-      border: 1.5px solid #ef4444;
-    }
-
-    .choice-row.neutral {
-      background: #fafafa;
-      border: 1.5px solid #eeeeee;
-      color: #888;
-    }
-
-    .badge {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 11px;
-      font-weight: 600;
-      padding: 2px 8px;
-      border-radius: 99px;
-      white-space: nowrap;
-      flex-shrink: 0;
-      margin-top: 1px;
-    }
-
-    .badge-correct {
-      background: #22c55e;
-      color: white;
-    }
-
-    .badge-wrong {
-      background: #ef4444;
-      color: white;
-    }
-
-    .badge-answer {
-      background: #111;
-      color: white;
-    }
-
-    .q-card {
-      background: white;
-      border: 1.5px solid #e5e5e5;
-      border-radius: 14px;
-      padding: 22px 22px 18px;
-      margin-bottom: 12px;
-    }
-
-    .q-card.is-correct {
-      border-color: #86efac;
-    }
-
-    .q-card.is-wrong {
-      border-color: #fca5a5;
-    }
-
-    .q-num {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 11px;
-      font-weight: 600;
-      color: #888;
-      letter-spacing: 0.05em;
-      margin-bottom: 6px;
-    }
-
-    .q-text {
-      font-size: 16px;
-      font-weight: 600;
-      color: #111;
-      margin-bottom: 14px;
-      line-height: 1.45;
-    }
-
-    .result-icon {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
-      flex-shrink: 0;
-    }
-
-    .result-icon.correct {
-      background: #dcfce7;
-      color: #16a34a;
-    }
-
-    .result-icon.wrong {
-      background: #fee2e2;
-      color: #dc2626;
-    }
-
-    .summary-bar {
-      display: flex;
-      background: #e5e5e5;
-      border-radius: 99px;
-      height: 8px;
-      overflow: hidden;
-      margin-top: 6px;
-    }
-
+    /* summary-bar-fill ใช้ transition แบบ delay → เก็บไว้ */
     .summary-bar-fill {
       background: #111;
       border-radius: 99px;
       transition: width 1s ease 0.5s;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0);    }
+    }
+    .fade-up {
+      opacity: 0;
+      animation: fadeUp 0.4s ease forwards;
     }
   </style>
 </head>
@@ -188,8 +61,8 @@
 <body class="min-h-screen px-5 py-10">
 
   <div class="w-full max-w-lg mx-auto" id="app">
-    <div style="text-align:center;padding:80px 0;opacity:.4">
-      <p style="font-size:15px">กำลังโหลดผลคะแนน...</p>
+    <div class="text-center py-20 opacity-40">
+      <p class="text-[15px]">กำลังโหลดผลคะแนน...</p>
     </div>
   </div>
 
@@ -289,129 +162,145 @@
 
     function getScoreLabel(score, total) {
       const pct = score / total;
-      if (pct === 1) return { label: "เพอร์เฟกต์! 🎉", sub: "ได้คะแนนเต็มทุกข้อเลย" };
-      if (pct >= 0.8) return { label: "ดีมาก! 👏", sub: "ความรู้พื้นฐานแน่นมาก" };
-      if (pct >= 0.6) return { label: "ผ่านฉลุย 👍", sub: "พอมีพื้นฐานบ้างแล้ว" };
-      if (pct >= 0.4) return { label: "พอไหวนะ 🙂", sub: "ยังมีอีกหลายข้อที่ต้องทบทวน" };
-      return { label: "ยังต้องฝึกอีกนะ 💪", sub: "ไม่เป็นไร เริ่มต้นจากศูนย์ได้เสมอ" };
+      if (pct === 1)    return { label: "เพอร์เฟกต์! 🎉", sub: "ได้คะแนนเต็มทุกข้อเลย" };
+      if (pct >= 0.8)   return { label: "ดีมาก 👏",       sub: "ความรู้พื้นฐานแน่นหรือฟลุคกันนะ" };
+      if (pct >= 0.6)   return { label: "ผ่านครึ่ง 👍",      sub: "ถือว่าพอมีพื้นฐานอยู่" };
+      if (pct >= 0.4)   return { label: "พอไหวนะ 🙂",       sub: "อย่างน้อยก็เดาได้" };
+      return { label: "ยังต้องฝึกอีก 💪", sub: "ไม่อยากเชื่อเลยว่าจะตอบแบบหลบข้อถูก" };
     }
 
     function render(results) {
-      const total = QUESTIONS.length;
-      const score = results ? results.filter(r => r.isCorrect).length : 0;
-      const pct = Math.round((score / total) * 100);
-      const ringDeg = Math.round((score / total) * 360);
+      const total    = QUESTIONS.length;
+      const score    = results ? results.filter(r => r.isCorrect).length : 0;
+      const pct      = Math.round((score / total) * 100);
+      const ringDeg  = Math.round((score / total) * 360);
       const { label, sub } = getScoreLabel(score, total);
 
       const questionsHTML = QUESTIONS.map((q, idx) => {
-        const result = results ? results.find(r => r.question === q.question) : null;
-        const selected = result ? result.selected : null;
+        const result    = results ? results.find(r => r.question === q.question) : null;
+        const selected  = result ? result.selected : null;
         const isCorrect = result ? result.isCorrect : null;
 
-        const cardClass = isCorrect === true ? 'is-correct' : isCorrect === false ? 'is-wrong' : '';
-        const iconClass = isCorrect === true ? 'correct' : 'wrong';
-        const iconChar = isCorrect === true ? '✓' : '✕';
+        // q-card border color via Tailwind
+        const cardBorder = isCorrect === true
+          ? 'border-[#86efac]'
+          : isCorrect === false
+            ? 'border-[#fca5a5]'
+            : 'border-[#e5e5e5]';
+
+        // result icon
+        const iconHtml = result !== null
+          ? `<div class="mt-0.5 w-7 h-7 rounded-full flex items-center justify-center text-[14px] shrink-0 ${
+              isCorrect
+                ? 'bg-[#dcfce7] text-[#16a34a]'
+                : 'bg-[#fee2e2] text-[#dc2626]'
+            }">${isCorrect ? '✓' : '✕'}</div>`
+          : '';
 
         const choicesHTML = Object.entries(q.choices).map(([val, lbl]) => {
-          const isAnswer = val === q.correct;
+          const isAnswer   = val === q.correct;
           const isSelected = val === selected;
 
-          let rowClass = 'neutral';
-          let badge = '';
-
+          // choice-row styles
+          let rowClasses, badge;
           if (isAnswer && isSelected) {
-            rowClass = 'correct-answer';
-            badge = '<span class="badge badge-correct">✓ ถูก</span>';
+            rowClasses = 'bg-[#f0faf4] border border-[1.5px] border-[#22c55e]';
+            badge = `<span class="font-mono text-[11px] font-semibold px-2 py-0.5 rounded-full whitespace-nowrap shrink-0 mt-px bg-[#22c55e] text-white">✓ ถูก</span>`;
           } else if (!isAnswer && isSelected) {
-            rowClass = 'wrong-selected';
-            badge = '<span class="badge badge-wrong">✕ ผิด</span>';
+            rowClasses = 'bg-[#fff5f5] border border-[1.5px] border-[#ef4444]';
+            badge = `<span class="font-mono text-[11px] font-semibold px-2 py-0.5 rounded-full whitespace-nowrap shrink-0 mt-px bg-[#ef4444] text-white">✕ ผิด</span>`;
           } else if (isAnswer) {
-            rowClass = 'correct-answer';
-            badge = results ? '<span class="badge badge-answer">เฉลย</span>' : '<span class="badge badge-answer">เฉลย</span>';
+            rowClasses = 'bg-[#f0faf4] border border-[1.5px] border-[#22c55e]';
+            badge = `<span class="font-mono text-[11px] font-semibold px-2 py-0.5 rounded-full whitespace-nowrap shrink-0 mt-px bg-[#111111] text-white">เฉลย</span>`;
+          } else {
+            rowClasses = 'bg-[#fafafa] border border-[1.5px] border-[#eeeeee] text-[#888888]';
+            badge = '';
           }
 
-          return `<div class="choice-row ${rowClass}"><div style="flex:1">${lbl}</div>${badge}</div>`;
+          return `<div class="flex items-start gap-[10px] px-3 py-[10px] rounded-lg text-[14px] leading-[1.5] ${rowClasses}">
+            <div class="flex-1">${lbl}</div>${badge}
+          </div>`;
         }).join('');
 
         const delayS = (0.05 * idx + 0.45).toFixed(2);
 
         return `
-      <div class="q-card ${cardClass} fade-up" style="animation-delay:${delayS}s">
-        <div style="display:flex;align-items:flex-start;gap:10px">
-          <div style="flex:1">
-            <div class="q-num">ข้อ ${idx + 1}</div>
-            <div class="q-text">${q.question}</div>
+        <div class="fade-up bg-white border-[1.5px] ${cardBorder} rounded-[14px] px-[22px] pt-[22px] pb-[18px] mb-3" style="animation-delay:${delayS}s">
+          <div class="flex items-start gap-[10px] mb-[14px]">
+            <div class="flex-1">
+              <div class="font-mono text-[11px] font-semibold text-[#888888] tracking-[0.05em] mb-1.5">ข้อ ${idx + 1}</div>
+              <div class="text-[16px] font-semibold text-[#111111] leading-[1.45]">${q.question}</div>
+            </div>
+            ${iconHtml}
           </div>
-          ${result !== null ? `<div class="result-icon ${iconClass}" style="margin-top:2px">${iconChar}</div>` : ''}
-        </div>
-        <div style="display:flex;flex-direction:column;gap:7px">${choicesHTML}</div>
-      </div>`;
+          <div class="flex flex-col gap-[7px]">${choicesHTML}</div>
+        </div>`;
       }).join('');
 
       document.getElementById('app').innerHTML = `
-    <div class="fade-up" style="animation-delay:.05s;text-align:center;margin-bottom:28px">
-      <p style="font-size:12px;font-weight:600;letter-spacing:.1em;color:#aaa;text-transform:uppercase;margin-bottom:4px">สายรหัส</p>
-      <p style="font-size:22px;font-weight:700;color:#111;margin-bottom:2px">ผลการทำแบบทดสอบ</p>
-      <p style="font-size:14px;color:#777">ดูเฉลยแต่ละข้อได้ด้านล่าง</p>
-    </div>
+        <!-- Header -->
+        <div class="fade-up text-center mb-7" style="animation-delay:.05s">
+          <p class="text-[22px] font-bold text-[#111111] mb-0.5">ผลการทำแบบทดสอบ</p>
+        </div>
 
-    <div class="fade-up" style="animation-delay:.15s;background:white;border:1.5px solid #e5e5e5;border-radius:18px;padding:28px 22px;margin-bottom:20px">
-      <div style="display:flex;align-items:center;gap:24px;flex-wrap:wrap">
-        <div class="score-ring" style="--pct:${ringDeg}deg">
-          <div class="score-inner">
-            <div style="font-family:'IBM Plex Mono',monospace;font-size:30px;font-weight:600;color:#111;line-height:1">${score}</div>
-            <div style="font-size:13px;color:#aaa;margin-top:2px">/ ${total}</div>
+        <!-- Score card -->
+        <div class="fade-up bg-white border-[1.5px] border-[#e5e5e5] rounded-[18px] px-[22px] py-7 mb-5" style="animation-delay:.15s">
+          <div class="flex items-center gap-6 flex-wrap">
+            <div class="score-ring" style="--pct:${ringDeg}deg">
+              <div class="score-inner">
+                <div class="font-mono text-[30px] font-semibold text-[#111111] leading-none">${score}</div>
+                <div class="text-[13px] text-[#aaaaaa] mt-0.5">/ ${total}</div>
+              </div>
+            </div>
+            <div class="flex-1 min-w-[140px]">
+              <div class="text-[20px] font-bold text-[#111111] mb-0.5">${label}</div>
+              <div class="text-[14px] text-[#777777] mb-[14px]">${sub}</div>
+              <div class="flex justify-between text-[13px] font-semibold text-[#111111] mb-1">
+                <span>คะแนน</span>
+                <span class="font-mono">${pct}%</span>
+              </div>
+              <div class="flex bg-[#e5e5e5] rounded-full h-2 overflow-hidden mt-1.5">
+                <div class="summary-bar-fill" style="width:${pct}%"></div>
+              </div>
+              <div class="flex gap-4 mt-2.5 text-[13px]">
+                <span class="text-[#16a34a] font-semibold">✓ ถูก ${score} ข้อ</span>
+                <span class="text-[#dc2626] font-semibold">✕ ผิด ${total - score} ข้อ</span>
+              </div>
+            </div>
           </div>
         </div>
-        <div style="flex:1;min-width:140px">
-          <div style="font-size:20px;font-weight:700;color:#111;margin-bottom:2px">${label}</div>
-          <div style="font-size:14px;color:#777;margin-bottom:14px">${sub}</div>
-          <div style="display:flex;justify-content:space-between;font-size:13px;font-weight:600;color:#111;margin-bottom:4px">
-            <span>คะแนน</span>
-            <span style="font-family:'IBM Plex Mono',monospace">${pct}%</span>
+
+        <!-- Legend -->
+        <div class="fade-up flex gap-[10px] flex-wrap mb-4" style="animation-delay:.28s">
+          <div class="flex items-center gap-1.5 text-[12px] text-[#555555]">
+            <div class="w-3.5 h-3.5 rounded-[3px] bg-[#f0faf4] border-[1.5px] border-[#22c55e]"></div>
+            <span>ตอบถูก / เฉลย</span>
           </div>
-          <div class="summary-bar">
-            <div class="summary-bar-fill" style="width:${pct}%"></div>
+          <div class="flex items-center gap-1.5 text-[12px] text-[#555555]">
+            <div class="w-3.5 h-3.5 rounded-[3px] bg-[#fff5f5] border-[1.5px] border-[#ef4444]"></div>
+            <span>ตอบผิด</span>
           </div>
-          <div style="display:flex;gap:16px;margin-top:10px;font-size:13px">
-            <span style="color:#16a34a;font-weight:600">✓ ถูก ${score} ข้อ</span>
-            <span style="color:#dc2626;font-weight:600">✕ ผิด ${total - score} ข้อ</span>
+          <div class="flex items-center gap-1.5 text-[12px] text-[#555555]">
+            <div class="w-3.5 h-3.5 rounded-[3px] bg-[#fafafa] border-[1.5px] border-[#eeeeee]"></div>
+            <span>ตัวเลือกอื่น</span>
           </div>
         </div>
-      </div>
-    </div>
 
-    <div class="fade-up" style="animation-delay:.28s;display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px">
-      <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:#555">
-        <div style="width:14px;height:14px;border-radius:3px;background:#f0faf4;border:1.5px solid #22c55e"></div>
-        <span>ตอบถูก / เฉลย</span>
-      </div>
-      <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:#555">
-        <div style="width:14px;height:14px;border-radius:3px;background:#fff5f5;border:1.5px solid #ef4444"></div>
-        <span>ตอบผิด</span>
-      </div>
-      <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:#555">
-        <div style="width:14px;height:14px;border-radius:3px;background:#fafafa;border:1.5px solid #eee"></div>
-        <span>ตัวเลือกอื่น</span>
-      </div>
-    </div>
+        <!-- Questions -->
+        ${questionsHTML}
 
-    ${questionsHTML}
-
-      <button onclick="window.location.href='qa2.html'"
-        class="w-full py-4 bg-[#111111] text-white rounded-lg text-[15px] font-semibold cursor-pointer transition-all duration-150 hover:bg-[#333] active:scale-[0.98] mb-3">
-        ถัดไป
-      </button>
-      <a href="index.html">
-        <button class="w-full py-4 bg-transparent text-[#111111] border-[1.5px] border-[#dddddd] rounded-lg text-[15px] font-semibold cursor-pointer transition-all duration-150 hover:border-[#111111]">
-          ← กลับหน้าแรก
+        <!-- Buttons -->
+        <button onclick="window.location.href='qa2.html'"
+          class="w-full py-4 bg-[#111111] text-white rounded-lg text-[15px] font-semibold cursor-pointer transition-all duration-150 hover:bg-[#333333] active:scale-[0.98] mb-3">
+          ถัดไป
         </button>
-      </a>
-    </div>
-  `;
+        <a href="index.html">
+          <button class="w-full py-4 bg-transparent text-[#111111] border-[1.5px] border-[#dddddd] rounded-lg text-[15px] font-semibold cursor-pointer transition-all duration-150 hover:border-[#111111]">
+            ← กลับหน้าแรก
+          </button>
+        </a>
+      `;
     }
-
-
 
     window.addEventListener('DOMContentLoaded', () => {
       const raw = sessionStorage.getItem('qa_results');
