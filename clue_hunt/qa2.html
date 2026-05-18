@@ -1,12 +1,401 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="th">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>สายรหัส — ตอบคำถาม — ส่วนที่ 2</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>สายรหัส — คำใบ้</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700&display=swap"
+    rel="stylesheet">
+  <style>
+    body {
+      font-family: 'IBM Plex Sans Thai', sans-serif;
+      background: #f5f4f0;
+    }
+
+    /* ── Gift Box ── */
+    .gift-scene {
+      width: 220px;
+      height: 220px;
+      position: relative;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    /* Box body */
+    .box-body {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 140px;
+      background: #111111;
+      border-radius: 6px 6px 10px 10px;
+      overflow: hidden;
+      transition: transform 0.2s ease;
+    }
+    .box-body::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      top: 0; bottom: 0;
+      width: 28px;
+      background: rgba(255,255,255,0.12);
+    }
+
+    /* Box lid */
+    .box-lid {
+      position: absolute;
+      bottom: 138px;
+      left: -8px;
+      right: -8px;
+      height: 38px;
+      background: #1a1a1a;
+      border-radius: 6px;
+      transform-origin: center bottom;
+      transition: transform 0.55s cubic-bezier(.34,1.56,.64,1), opacity 0.4s ease;
+      z-index: 10;
+    }
+    .box-lid::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      top: 0; bottom: 0;
+      width: 30px;
+      background: rgba(255,255,255,0.10);
+      border-radius: 2px;
+    }
+
+    /* Ribbon vertical */
+    .ribbon-v {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 0;
+      width: 28px;
+      height: 178px;
+      background: #d4a843;
+      z-index: 5;
+      pointer-events: none;
+      border-radius: 2px;
+      transition: opacity 0.3s ease;
+    }
+    /* Ribbon horizontal */
+    .ribbon-h {
+      position: absolute;
+      left: -8px; right: -8px;
+      bottom: 138px;
+      height: 38px;
+      background: #d4a843;
+      z-index: 11;
+      pointer-events: none;
+      border-radius: 6px;
+      transition: transform 0.55s cubic-bezier(.34,1.56,.64,1), opacity 0.4s ease;
+    }
+    .ribbon-h::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 30px;
+      height: 30px;
+      background: #d4a843;
+      z-index: 12;
+      border-radius: 2px;
+    }
+
+    /* Bow */
+    .bow {
+      position: absolute;
+      bottom: 172px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 50px;
+      z-index: 20;
+      pointer-events: none;
+      transition: transform 0.55s cubic-bezier(.34,1.56,.64,1), opacity 0.4s ease;
+    }
+    .bow-left, .bow-right {
+      position: absolute;
+      width: 34px;
+      height: 34px;
+      background: #d4a843;
+      border-radius: 50% 50% 0 50%;
+      top: 0;
+    }
+    .bow-left {
+      left: 0;
+      transform: rotate(-45deg);
+      transform-origin: bottom right;
+    }
+    .bow-right {
+      right: 0;
+      transform: rotate(45deg);
+      transform-origin: bottom left;
+      border-radius: 50% 50% 50% 0;
+    }
+    .bow-center {
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      transform: translateX(-50%);
+      width: 16px;
+      height: 16px;
+      background: #e8c05a;
+      border-radius: 50%;
+      z-index: 2;
+    }
+
+    /* Stars/sparkles around box */
+    .sparkle {
+      position: absolute;
+      pointer-events: none;
+      opacity: 0;
+      transition: none;
+      font-size: 18px;
+    }
+
+    /* ── Opened state ── */
+    .gift-scene.opened .box-lid {
+      transform: translateY(-90px) rotate(-25deg);
+      opacity: 0;
+    }
+    .gift-scene.opened .bow {
+      transform: translateX(-50%) translateY(-90px) rotate(-25deg);
+      opacity: 0;
+    }
+    .gift-scene.opened .ribbon-h {
+      transform: translateY(-90px);
+      opacity: 0;
+    }
+
+    /* Photo pop up */
+    .photo-reveal {
+      position: absolute;
+      bottom: 130px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px) scale(0.3);
+      width: 160px;
+      height: 160px;
+      border-radius: 10px;
+      border: 3px solid #ffffff;
+      overflow: hidden;
+      opacity: 0;
+      transition: none;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+      z-index: 30;
+    }
+    .photo-reveal img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .gift-scene.opened .photo-reveal {
+      animation: popPhoto 0.6s cubic-bezier(.34,1.56,.64,1) 0.2s forwards;
+    }
+
+    @keyframes popPhoto {
+      0%   { transform: translateX(-50%) translateY(20px) scale(0.3); opacity: 0; }
+      60%  { transform: translateX(-50%) translateY(-145px) scale(1.05); opacity: 1; }
+      100% { transform: translateX(-50%) translateY(-140px) scale(1); opacity: 1; }
+    }
+
+    /* Sparkle animation */
+    @keyframes sparkleOut {
+      0%   { opacity: 0; transform: translate(0,0) scale(0.5); }
+      40%  { opacity: 1; }
+      100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(1); }
+    }
+    .sparkle.active {
+      animation: sparkleOut 0.7s ease-out forwards;
+    }
+
+    /* Box shake on hover */
+    @keyframes wiggle {
+      0%,100% { transform: rotate(0deg); }
+      25%      { transform: rotate(-3deg); }
+      75%      { transform: rotate(3deg); }
+    }
+    .gift-scene:not(.opened):hover {
+      animation: wiggle 0.35s ease infinite;
+    }
+
+    /* ── Page animations ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up {
+      opacity: 0;
+      animation: fadeUp .45s ease forwards;
+    }
+
+    /* Hint text that fades out */
+    .tap-hint {
+      animation: fadeUp .45s ease .8s forwards, pulseOpacity 2s ease 1.5s infinite;
+      opacity: 0;
+    }
+    @keyframes pulseOpacity {
+      0%,100% { opacity: 0.45; }
+      50%      { opacity: 0.85; }
+    }
+
+    /* ── Confetti (same as perfect page) ── */
+    @keyframes fall {
+      0%   { transform: translateY(-60px) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+    }
+    .confetti-piece {
+      position: fixed;
+      top: -60px;
+      border-radius: 2px;
+      animation: fall linear infinite;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0;
+    }
+    .confetti-piece.active {
+      opacity: 1;
+    }
+  </style>
 </head>
-<body>
-        <p class="font-semibold text-[28px] text-black tracking-tight mb-1">ส่วนที่ 2</p>
-        
+
+<body class="min-h-screen flex items-center justify-center overflow-x-hidden px-6 py-12">
+
+  <div id="confetti-container" aria-hidden="true"></div>
+
+  <main class="relative z-10 w-full max-w-sm flex flex-col items-center text-center">
+
+    <!-- Title -->
+    <div class="fade-up mb-3" style="animation-delay:.05s">
+      <p class="font-mono text-[11px] font-semibold text-[#aaaaaa] tracking-[.12em] uppercase mb-2">คำใบ้พิเศษ</p>
+      <h1 class="text-[22px] font-bold text-[#111111] leading-[1.4]">มีของขวัญรอคุณอยู่</h1>
+    </div>
+
+    <!-- Subtitle -->
+    <div class="fade-up mb-10" style="animation-delay:.15s">
+      <p class="text-[15px] text-[#777777] leading-[1.65]">คลิกที่กล่องเพื่อเปิดดูคำใบ้</p>
+    </div>
+
+    <!-- Gift box scene wrapper (extra space for photo) -->
+    <div class="fade-up relative flex items-end justify-center mb-6" style="animation-delay:.3s; height: 340px; width: 280px;">
+
+      <!-- Sparkles -->
+      <div class="sparkle" id="sp1" style="--tx:-55px;--ty:-70px; top:40%; left:10%;">✦</div>
+      <div class="sparkle" id="sp2" style="--tx:60px;--ty:-80px;  top:30%; right:8%;">✦</div>
+      <div class="sparkle" id="sp3" style="--tx:-40px;--ty:-100px;top:20%; left:20%;">✨</div>
+      <div class="sparkle" id="sp4" style="--tx:45px;--ty:-60px;  top:50%; right:15%;">✦</div>
+      <div class="sparkle" id="sp5" style="--tx:-30px;--ty:-50px; top:60%; left:15%;">⭐</div>
+      <div class="sparkle" id="sp6" style="--tx:50px;--ty:-90px;  top:25%; right:5%;" >✦</div>
+
+      <!-- Gift box -->
+      <div class="gift-scene" id="giftBox">
+
+        <!-- Photo (hidden until opened) -->
+        <div class="photo-reveal">
+          <img src="Picture/Say.jpg" alt="คำใบ้" />
+        </div>
+
+        <!-- Bow -->
+        <div class="bow">
+          <div class="bow-left"></div>
+          <div class="bow-right"></div>
+          <div class="bow-center"></div>
+        </div>
+
+        <!-- Ribbon (vertical, behind lid) -->
+        <div class="ribbon-v"></div>
+
+        <!-- Lid + horizontal ribbon -->
+        <div class="box-lid"></div>
+        <div class="ribbon-h"></div>
+
+        <!-- Box body -->
+        <div class="box-body"></div>
+
+      </div>
+    </div>
+
+    <!-- Tap hint -->
+    <p class="tap-hint text-[13px] text-[#999999] mb-10 tracking-wide" id="tapHint">
+      แตะกล่องของขวัญ ✦
+    </p>
+
+    <!-- Buttons (hidden until opened) -->
+    <div class="fade-up w-full hidden" id="btnGroup" style="animation-delay:0s">
+      <a href="index.html"
+        class="block w-full py-[14px] px-5 bg-[#111111] text-white rounded-lg text-[15px] font-semibold cursor-pointer transition-all duration-150 hover:bg-[#333333] active:scale-[0.98] mb-3">
+        กลับหน้าแรก
+      </a>
+    </div>
+
+  </main>
+
+  <script>
+    const box    = document.getElementById('giftBox');
+    const hint   = document.getElementById('tapHint');
+    const btns   = document.getElementById('btnGroup');
+    const sparkles = document.querySelectorAll('.sparkle');
+    const confettiContainer = document.getElementById('confetti-container');
+
+    let opened = false;
+
+    function fireSparkles() {
+      sparkles.forEach((el, i) => {
+        el.classList.remove('active');
+        void el.offsetWidth; // reflow
+        setTimeout(() => el.classList.add('active'), i * 60);
+      });
+    }
+
+    function launchConfetti() {
+      const colors = ['#fbbf24','#34d399','#60a5fa','#f87171','#a78bfa','#fb923c','#4ade80'];
+      confettiContainer.innerHTML = '';
+      for (let i = 0; i < 55; i++) {
+        const el = document.createElement('div');
+        el.className = 'confetti-piece active';
+        const size = Math.random() * 8 + 6;
+        el.style.cssText = `
+          left: ${Math.random() * 100}vw;
+          width: ${size}px;
+          height: ${size}px;
+          background: ${colors[Math.floor(Math.random() * colors.length)]};
+          animation-duration: ${Math.random() * 3 + 2.5}s;
+          animation-delay: ${Math.random() * 2}s;
+          border-radius: ${Math.random() > .5 ? '50%' : '2px'};
+        `;
+        confettiContainer.appendChild(el);
+      }
+    }
+
+    box.addEventListener('click', () => {
+      if (opened) return;
+      opened = true;
+
+      box.classList.add('opened');
+      fireSparkles();
+
+      // hide hint
+      hint.style.transition = 'opacity 0.3s ease';
+      hint.style.opacity = '0';
+
+      // launch confetti after short delay
+      setTimeout(launchConfetti, 300);
+
+      // show buttons after photo appears
+      setTimeout(() => {
+        btns.classList.remove('hidden');
+        btns.style.animation = 'fadeUp .45s ease forwards';
+      }, 900);
+    });
+  </script>
+
 </body>
 </html>
