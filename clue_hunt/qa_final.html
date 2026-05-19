@@ -10,26 +10,9 @@
     href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700&display=swap"
     rel="stylesheet">
   <style>
-    body {
-      font-family: 'IBM Plex Sans Thai', sans-serif;
-      background: #f5f4f0;
-    }
+    body { font-family: 'IBM Plex Sans Thai', sans-serif; }
 
-    /* ──────────────────────────────────────────
-       Gift Box — ทั้งหมดนี้ใช้ pseudo-element (::after),
-       transform-origin, CSS custom props (--tx/--ty),
-       และ animation ซับซ้อน → Tailwind ทำไม่ได้
-    ────────────────────────────────────────── */
-
-    .box-body {
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      height: 140px;
-      background: #111111;
-      border-radius: 6px 6px 10px 10px;
-      overflow: hidden;
-      transition: transform 0.2s ease;
-    }
+    /* ── Gift box parts (transform-origin / pseudo-elements / complex transitions) ── */
     .box-body::after {
       content: '';
       position: absolute;
@@ -39,7 +22,6 @@
       width: 28px;
       background: rgba(255,255,255,0.12);
     }
-
     .box-lid {
       position: absolute;
       bottom: 138px;
@@ -61,21 +43,6 @@
       background: rgba(255,255,255,0.10);
       border-radius: 2px;
     }
-
-    .ribbon-v {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      bottom: 0;
-      width: 28px;
-      height: 178px;
-      background: #d4a843;
-      z-index: 5;
-      pointer-events: none;
-      border-radius: 2px;
-      transition: opacity 0.3s ease;
-    }
-
     .ribbon-h {
       position: absolute;
       left: -8px; right: -8px;
@@ -97,7 +64,6 @@
       z-index: 12;
       border-radius: 2px;
     }
-
     .bow {
       position: absolute;
       bottom: 172px;
@@ -108,35 +74,26 @@
       pointer-events: none;
       transition: transform 0.55s cubic-bezier(.34,1.56,.64,1), opacity 0.4s ease;
     }
-    .bow-left, .bow-right {
+    .bow-left {
       position: absolute;
       width: 34px; height: 34px;
       background: #d4a843;
-      top: 0;
-    }
-    .bow-left {
-      left: 0;
+      top: 0; left: 0;
       border-radius: 50% 50% 0 50%;
       transform: rotate(-45deg);
       transform-origin: bottom right;
     }
     .bow-right {
-      right: 0;
+      position: absolute;
+      width: 34px; height: 34px;
+      background: #d4a843;
+      top: 0; right: 0;
       border-radius: 50% 50% 50% 0;
       transform: rotate(45deg);
       transform-origin: bottom left;
     }
-    .bow-center {
-      position: absolute;
-      left: 50%; bottom: 0;
-      transform: translateX(-50%);
-      width: 16px; height: 16px;
-      background: #e8c05a;
-      border-radius: 50%;
-      z-index: 2;
-    }
 
-    /* Sparkles — ใช้ CSS custom props --tx/--ty → ต้องอยู่ใน CSS */
+    /* ── Sparkles (CSS custom props --tx/--ty) ── */
     .sparkle {
       position: absolute;
       pointer-events: none;
@@ -148,15 +105,12 @@
       40%  { opacity: 1; }
       100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(1); }
     }
-    .sparkle.active {
-      animation: sparkleOut 0.7s ease-out forwards;
-    }
+    .sparkle.active { animation: sparkleOut 0.7s ease-out forwards; }
 
-    /* Photo pop-up — fixed เพื่อให้อยู่กึ่งกลางหน้าจอ */
+    /* ── Photo pop-up ── */
     .photo-reveal {
       position: fixed;
-      top: 50%;
-      left: 50%;
+      top: 50%; left: 50%;
       transform: translate(-50%, -50%) scale(0.3);
       width: 300px; height: 420px;
       border-radius: 10px;
@@ -165,8 +119,6 @@
       perspective: 1000px;
       cursor: pointer;
     }
-
-    /* Flip card inner */
     .flip-card-inner {
       position: relative;
       width: 100%; height: 100%;
@@ -174,11 +126,7 @@
       transition: transform 0.7s cubic-bezier(.4,0,.2,1);
       border-radius: 10px;
     }
-    .photo-reveal.flipped .flip-card-inner {
-      transform: rotateY(180deg);
-    }
-
-    /* Front face */
+    .photo-reveal.flipped .flip-card-inner { transform: rotateY(180deg); }
     .flip-front, .flip-back {
       position: absolute;
       inset: 0;
@@ -190,8 +138,6 @@
       box-shadow: 0 8px 32px rgba(0,0,0,0.18);
     }
     .flip-front img { width: 100%; height: 100%; object-fit: cover; }
-
-    /* Front: hint overlay */
     .flip-front::after {
       content: 'แตะเพื่อดูข้อความ ✦';
       position: absolute;
@@ -207,8 +153,6 @@
       transition: opacity 0.3s ease;
     }
     .photo-reveal:hover .flip-front::after { opacity: 1; }
-
-    /* Back face */
     .flip-back {
       transform: rotateY(180deg);
       background: #111111;
@@ -219,32 +163,11 @@
       padding: 28px 24px;
       gap: 16px;
     }
-    .flip-back .back-icon {
-      font-size: 36px;
-      line-height: 1;
-    }
-    .flip-back .back-title {
-      font-size: 17px;
-      font-weight: 700;
-      color: #d4a843;
-      letter-spacing: 0.03em;
-      text-align: center;
-      font-family: 'IBM Plex Sans Thai', sans-serif;
-    }
-    .flip-back .back-text {
-      font-size: 15px;
-      line-height: 1.75;
-      color: rgba(255,255,255,0.82);
-      text-align: center;
-      font-family: 'IBM Plex Sans Thai', sans-serif;
-    }
-    .flip-back .back-divider {
-      width: 40px; height: 2px;
-      background: #d4a843;
-      border-radius: 99px;
-      opacity: 0.6;
-    }
 
+    /* ── Opened state ── */
+    .gift-scene.opened .box-lid  { transform: translateY(-90px) rotate(-25deg); opacity: 0; }
+    .gift-scene.opened .bow      { transform: translateX(-50%) translateY(-90px) rotate(-25deg); opacity: 0; }
+    .gift-scene.opened .ribbon-h { transform: translateY(-90px); opacity: 0; }
     .gift-scene.opened .photo-reveal {
       animation: popPhoto 0.6s cubic-bezier(.34,1.56,.64,1) 0.2s forwards;
     }
@@ -254,12 +177,7 @@
       100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
     }
 
-    /* Opened state */
-    .gift-scene.opened .box-lid  { transform: translateY(-90px) rotate(-25deg); opacity: 0; }
-    .gift-scene.opened .bow      { transform: translateX(-50%) translateY(-90px) rotate(-25deg); opacity: 0; }
-    .gift-scene.opened .ribbon-h { transform: translateY(-90px); opacity: 0; }
-
-    /* Wiggle on hover */
+    /* ── Wiggle on hover (before open) ── */
     @keyframes wiggle {
       0%,100% { transform: rotate(0deg); }
       25%     { transform: rotate(-3deg); }
@@ -272,12 +190,9 @@
       from { opacity: 0; transform: translateY(16px); }
       to   { opacity: 1; transform: translateY(0); }
     }
-    .fade-up {
-      opacity: 0;
-      animation: fadeUp .45s ease forwards;
-    }
+    .fade-up { opacity: 0; animation: fadeUp .45s ease forwards; }
 
-    /* Tap hint pulse */
+    /* ── Tap hint pulse ── */
     .tap-hint {
       animation: fadeUp .45s ease .8s forwards, pulseOpacity 2s ease 1.5s infinite;
       opacity: 0;
@@ -287,7 +202,7 @@
       50%     { opacity: 0.85; }
     }
 
-    /* Confetti */
+    /* ── Confetti ── */
     @keyframes fall {
       0%   { transform: translateY(-60px) rotate(0deg);   opacity: 1; }
       100% { transform: translateY(110vh)  rotate(720deg); opacity: 0; }
@@ -305,7 +220,7 @@
   </style>
 </head>
 
-<body class="min-h-screen flex items-center justify-center overflow-x-hidden px-6 py-12">
+<body class="min-h-screen flex items-center justify-center overflow-x-hidden px-6 py-12 bg-[#f5f4f0]">
 
   <div id="confetti-container" aria-hidden="true"></div>
 
@@ -313,16 +228,19 @@
 
     <!-- Title -->
     <div class="fade-up mb-3" style="animation-delay:.05s">
-      <h1 class="text-[22px] font-bold text-[#111111] leading-[1.4]">แตะกล่องของขวัญเพื่อรับคำใบ้พิเศษ</h1>
+      <h1 class="text-[22px] font-bold text-[#111111] leading-snug">
+        แตะกล่องของขวัญเพื่อรับคำใบ้พิเศษ
+      </h1>
     </div>
 
     <!-- Subtitle -->
     <div class="fade-up mb-10" style="animation-delay:.15s">
-      <p class="text-[15px] text-[#777777] leading-[1.65]">ขอให้โชคดี!</p>
+      <p class="text-[15px] text-[#777777] leading-relaxed">ขอให้โชคดี!</p>
     </div>
 
     <!-- Gift box scene wrapper -->
-    <div class="fade-up relative flex items-end justify-center mb-6" style="animation-delay:.3s; height:340px; width:280px;">
+    <div class="fade-up relative flex items-end justify-center mb-6"
+         style="animation-delay:.3s; height:340px; width:280px;">
 
       <!-- Sparkles -->
       <div class="sparkle" id="sp1" style="--tx:-55px;--ty:-70px;  top:40%; left:10%;">✦</div>
@@ -335,49 +253,60 @@
       <!-- Gift box -->
       <div class="gift-scene relative w-[220px] h-[220px] cursor-pointer select-none" id="giftBox">
 
+        <!-- Photo reveal card -->
         <div class="photo-reveal" id="photoCard">
           <div class="flip-card-inner">
-            <!-- หน้าหน้า: รูปภาพ -->
+            <!-- Front: image -->
             <div class="flip-front">
               <img src="Picture/Say.jpg" alt="คำใบ้" />
             </div>
-            <!-- หน้าหลัง: ข้อความ -->
+            <!-- Back: message -->
             <div class="flip-back">
-              <div class="back-icon">✦</div>
-              <span style="color:#d4a843; font-weight:600;">ล้อเล่น ✦</span>
-              <div class="back-title">คำใบ้พิเศษก็คือ</div>
-              <div class="back-divider"></div>
-              <div class="back-text">
+              <div class="text-4xl leading-none">✦</div>
+              <span class="text-[#d4a843] font-semibold">ล้อเล่น ✦</span>
+              <div class="text-[17px] font-bold text-[#d4a843] tracking-wide text-center"
+                   style="font-family:'IBM Plex Sans Thai',sans-serif;">
+                คำใบ้พิเศษก็คือ
+              </div>
+              <div class="w-10 h-0.5 rounded-full bg-[#d4a843] opacity-60"></div>
+              <div class="text-[15px] leading-relaxed text-white/80 text-center"
+                   style="font-family:'IBM Plex Sans Thai',sans-serif;">
                 พี่เป็นผู้ชาย<br>
-                
               </div>
             </div>
           </div>
         </div>
 
+        <!-- Bow -->
         <div class="bow">
           <div class="bow-left"></div>
           <div class="bow-right"></div>
-          <div class="bow-center"></div>
+          <!-- Bow center knot -->
+          <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full z-[2]"
+               style="background:#e8c05a;"></div>
         </div>
 
-        <div class="ribbon-v"></div>
+        <!-- Vertical ribbon -->
+        <div class="absolute left-1/2 -translate-x-1/2 bottom-0 z-[5] rounded-sm pointer-events-none transition-opacity duration-300"
+             style="width:28px; height:178px; background:#d4a843;"></div>
+
+        <!-- Lid -->
         <div class="box-lid"></div>
+
+        <!-- Horizontal ribbon (over lid) -->
         <div class="ribbon-h"></div>
-        <div class="box-body"></div>
+
+        <!-- Box body -->
+        <div class="box-body absolute bottom-0 left-0 right-0 overflow-hidden transition-transform duration-200"
+             style="height:140px; background:#111111; border-radius:6px 6px 10px 10px;"></div>
 
       </div>
     </div>
 
-    <!-- Tap hint -->
-    <p class="tap-hint text-[13px] text-[#999999] mb-10 tracking-wide" id="tapHint">
-      แตะกล่องของขวัญ ✦
-    </p>
-
     <!-- Buttons (hidden until opened) -->
     <div class="fade-up w-full hidden" id="btnGroup" style="animation-delay:0s">
       <a href="index.html"
-        class="block w-full py-[14px] px-5 bg-[#111111] text-white rounded-lg text-[15px] font-semibold cursor-pointer transition-all duration-150 hover:bg-[#333333] active:scale-[0.98] mb-3">
+         class="block w-full py-[14px] px-5 bg-[#111111] text-white rounded-lg text-[15px] font-semibold cursor-pointer transition-all duration-150 hover:bg-[#333333] active:scale-[0.98] mb-3 text-center">
         กลับหน้าแรก
       </a>
     </div>
@@ -385,9 +314,9 @@
   </main>
 
   <script>
-    const box     = document.getElementById('giftBox');
-    const hint    = document.getElementById('tapHint');
-    const btns    = document.getElementById('btnGroup');
+    const box      = document.getElementById('giftBox');
+    const hint     = document.getElementById('tapHint');
+    const btns     = document.getElementById('btnGroup');
     const sparkles = document.querySelectorAll('.sparkle');
     const confettiContainer = document.getElementById('confetti-container');
 
