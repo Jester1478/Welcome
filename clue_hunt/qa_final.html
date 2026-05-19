@@ -160,13 +160,90 @@
       transform: translate(-50%, -50%) scale(0.3);
       width: 300px; height: 420px;
       border-radius: 10px;
-      border: 3px solid #ffffff;
-      overflow: hidden;
       opacity: 0;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.18);
       z-index: 100;
+      perspective: 1000px;
+      cursor: pointer;
     }
-    .photo-reveal img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* Flip card inner */
+    .flip-card-inner {
+      position: relative;
+      width: 100%; height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 0.7s cubic-bezier(.4,0,.2,1);
+      border-radius: 10px;
+    }
+    .photo-reveal.flipped .flip-card-inner {
+      transform: rotateY(180deg);
+    }
+
+    /* Front face */
+    .flip-front, .flip-back {
+      position: absolute;
+      inset: 0;
+      border-radius: 10px;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      overflow: hidden;
+      border: 3px solid #ffffff;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    }
+    .flip-front img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* Front: hint overlay */
+    .flip-front::after {
+      content: 'แตะเพื่อดูข้อความ ✦';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 14px 10px;
+      background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, transparent 100%);
+      color: #fff;
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      text-align: center;
+      font-family: 'IBM Plex Sans Thai', sans-serif;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .photo-reveal:hover .flip-front::after { opacity: 1; }
+
+    /* Back face */
+    .flip-back {
+      transform: rotateY(180deg);
+      background: #111111;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 28px 24px;
+      gap: 16px;
+    }
+    .flip-back .back-icon {
+      font-size: 36px;
+      line-height: 1;
+    }
+    .flip-back .back-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: #d4a843;
+      letter-spacing: 0.03em;
+      text-align: center;
+      font-family: 'IBM Plex Sans Thai', sans-serif;
+    }
+    .flip-back .back-text {
+      font-size: 15px;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.82);
+      text-align: center;
+      font-family: 'IBM Plex Sans Thai', sans-serif;
+    }
+    .flip-back .back-divider {
+      width: 40px; height: 2px;
+      background: #d4a843;
+      border-radius: 99px;
+      opacity: 0.6;
+    }
 
     .gift-scene.opened .photo-reveal {
       animation: popPhoto 0.6s cubic-bezier(.34,1.56,.64,1) 0.2s forwards;
@@ -258,8 +335,24 @@
       <!-- Gift box -->
       <div class="gift-scene relative w-[220px] h-[220px] cursor-pointer select-none" id="giftBox">
 
-        <div class="photo-reveal">
-          <img src="Picture/Say.jpg" alt="คำใบ้" />
+        <div class="photo-reveal" id="photoCard">
+          <div class="flip-card-inner">
+            <!-- หน้าหน้า: รูปภาพ -->
+            <div class="flip-front">
+              <img src="Picture/Say.jpg" alt="คำใบ้" />
+            </div>
+            <!-- หน้าหลัง: ข้อความ -->
+            <div class="flip-back">
+              <div class="back-icon">✦</div>
+              <span style="color:#d4a843; font-weight:600;">ล้อเล่น ✦</span>
+              <div class="back-title">คำใบ้พิเศษก็คือ</div>
+              <div class="back-divider"></div>
+              <div class="back-text">
+                พี่เป็นผู้ชาย<br>
+                
+              </div>
+            </div>
+          </div>
         </div>
 
         <div class="bow">
@@ -344,6 +437,12 @@
         btns.classList.remove('hidden');
         btns.style.animation = 'fadeUp .45s ease forwards';
       }, 900);
+    });
+
+    // Flip card on click
+    const photoCard = document.getElementById('photoCard');
+    photoCard.addEventListener('click', () => {
+      photoCard.classList.toggle('flipped');
     });
   </script>
 
