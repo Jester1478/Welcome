@@ -37,26 +37,26 @@
     /* ── Safe body ── */
     .safe-body {
       background: linear-gradient(160deg, #2a2a2a 0%, #1a1a1a 60%, #111111 100%);
-      border-radius: 14px;
+      border-radius: 18px;
       box-shadow:
         0 2px 0 #444 inset,
         0 -2px 0 #000 inset,
         2px 0 0 #333 inset,
         -2px 0 0 #333 inset,
-        0 20px 50px rgba(0,0,0,0.4),
-        0 8px 16px rgba(0,0,0,0.25);
+        0 28px 64px rgba(0,0,0,0.45),
+        0 10px 20px rgba(0,0,0,0.3);
       position: relative;
     }
 
     /* ── Safe door panel ── */
     .safe-door {
       background: linear-gradient(145deg, #232323 0%, #181818 100%);
-      border-radius: 10px;
+      border-radius: 14px;
       border: 2px solid #333;
       box-shadow:
         0 2px 0 #3a3a3a inset,
         0 -1px 0 #000 inset,
-        0 4px 12px rgba(0,0,0,0.3);
+        0 6px 16px rgba(0,0,0,0.35);
       position: relative;
       overflow: hidden;
       transition: transform 1.2s cubic-bezier(.4,0,.2,1), opacity 0.8s ease;
@@ -69,12 +69,12 @@
 
     /* ── Dial ── */
     .dial-outer {
-      width: 90px;
-      height: 90px;
+      width: 120px;
+      height: 120px;
       border-radius: 50%;
       background: conic-gradient(#3a3a3a 0deg, #555 30deg, #3a3a3a 60deg, #555 90deg, #3a3a3a 120deg, #555 150deg, #3a3a3a 180deg, #555 210deg, #3a3a3a 240deg, #555 270deg, #3a3a3a 300deg, #555 330deg, #3a3a3a 360deg);
       box-shadow:
-        0 4px 12px rgba(0,0,0,0.5),
+        0 6px 16px rgba(0,0,0,0.55),
         0 1px 2px #555 inset,
         0 -1px 2px #111 inset;
       display: flex;
@@ -84,23 +84,23 @@
       transition: transform 0.3s cubic-bezier(.34,1.56,.64,1);
     }
     .dial-inner {
-      width: 62px;
-      height: 62px;
+      width: 84px;
+      height: 84px;
       border-radius: 50%;
       background: linear-gradient(135deg, #444 0%, #1f1f1f 100%);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.5), 0 1px 1px #555 inset;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.55), 0 1px 1px #555 inset;
       display: flex;
       align-items: center;
       justify-content: center;
       position: relative;
     }
     .dial-marker {
-      width: 3px;
-      height: 14px;
+      width: 4px;
+      height: 18px;
       background: #d4a843;
       border-radius: 2px;
       position: absolute;
-      top: 8px;
+      top: 10px;
       left: 50%;
       transform: translateX(-50%);
     }
@@ -114,25 +114,25 @@
 
     /* ── Handle ── */
     .safe-handle {
-      width: 16px;
-      height: 50px;
+      width: 20px;
+      height: 64px;
       background: linear-gradient(180deg, #555 0%, #333 50%, #555 100%);
-      border-radius: 8px;
-      box-shadow: 2px 0 4px rgba(0,0,0,0.4), -1px 0 2px #444 inset;
+      border-radius: 10px;
+      box-shadow: 3px 0 5px rgba(0,0,0,0.4), -1px 0 2px #444 inset;
     }
 
     /* ── Keypad display ── */
     .keypad-display {
       background: #0a0a0a;
       border: 1px solid #2a2a2a;
-      border-radius: 6px;
+      border-radius: 8px;
       font-family: 'IBM Plex Mono', monospace;
       letter-spacing: 0.15em;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.4) inset;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.45) inset;
     }
     .display-dot {
-      width: 10px;
-      height: 10px;
+      width: 14px;
+      height: 14px;
       border-radius: 50%;
       background: #1a1a1a;
       border: 1px solid #222;
@@ -140,30 +140,30 @@
     }
     .display-dot.filled {
       background: #d4a843;
-      box-shadow: 0 0 6px rgba(212,168,67,0.6);
+      box-shadow: 0 0 8px rgba(212,168,67,0.65);
     }
     .display-dot.error {
       background: #f87171;
-      box-shadow: 0 0 6px rgba(248,113,113,0.6);
+      box-shadow: 0 0 8px rgba(248,113,113,0.65);
     }
 
     /* ── Number buttons ── */
     .num-btn {
-      width: 46px;
-      height: 46px;
-      border-radius: 8px;
+      width: 62px;
+      height: 62px;
+      border-radius: 10px;
       background: linear-gradient(145deg, #2d2d2d 0%, #1e1e1e 100%);
       border: 1px solid #3a3a3a;
       color: #cccccc;
       font-family: 'IBM Plex Mono', monospace;
-      font-size: 16px;
+      font-size: 20px;
       font-weight: 600;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
       transition: all 0.1s ease;
-      box-shadow: 0 3px 0 #111, 0 1px 1px #444 inset;
+      box-shadow: 0 4px 0 #111, 0 1px 1px #444 inset;
       user-select: none;
     }
     .num-btn:hover {
@@ -172,45 +172,45 @@
       border-color: #555;
     }
     .num-btn:active, .num-btn.pressed {
-      transform: translateY(2px);
+      transform: translateY(3px);
       box-shadow: 0 1px 0 #111, 0 1px 1px #333 inset;
     }
     .num-btn.del-btn {
       color: #777;
-      font-size: 14px;
+      font-size: 18px;
     }
     .num-btn.del-btn:hover { color: #f87171; border-color: #f87171; }
 
     /* ── Shake animation ── */
     @keyframes shake {
       0%,100% { transform: translateX(0); }
-      15%     { transform: translateX(-6px); }
-      30%     { transform: translateX(6px); }
-      45%     { transform: translateX(-5px); }
-      60%     { transform: translateX(5px); }
-      75%     { transform: translateX(-3px); }
-      90%     { transform: translateX(3px); }
+      15%     { transform: translateX(-8px); }
+      30%     { transform: translateX(8px); }
+      45%     { transform: translateX(-6px); }
+      60%     { transform: translateX(6px); }
+      75%     { transform: translateX(-4px); }
+      90%     { transform: translateX(4px); }
     }
     .shake { animation: shake 0.45s ease; }
 
     /* ── Bolt indicators ── */
     .bolt {
-      width: 10px;
-      height: 28px;
+      width: 13px;
+      height: 36px;
       background: linear-gradient(180deg, #444 0%, #2a2a2a 100%);
-      border-radius: 5px;
-      box-shadow: 1px 0 2px rgba(0,0,0,0.4);
+      border-radius: 7px;
+      box-shadow: 1px 0 3px rgba(0,0,0,0.4);
       transition: transform 0.5s cubic-bezier(.34,1.56,.64,1);
     }
     .bolt.retracted { transform: scaleY(0); }
 
-    /* ── Photo pop-up (from qa_final) ── */
+    /* ── Photo pop-up ── */
     .photo-reveal {
       position: fixed;
       top: 50%; left: 50%;
       transform: translate(-50%, -50%) scale(0.3);
-      width: 300px; height: 420px;
-      border-radius: 10px;
+      width: 340px; height: 480px;
+      border-radius: 12px;
       opacity: 0;
       z-index: 100;
       perspective: 1000px;
@@ -222,28 +222,28 @@
       width: 100%; height: 100%;
       transform-style: preserve-3d;
       transition: transform 0.7s cubic-bezier(.4,0,.2,1);
-      border-radius: 10px;
+      border-radius: 12px;
     }
     .photo-reveal.flipped .flip-card-inner { transform: rotateY(180deg); }
     .flip-front, .flip-back {
       position: absolute;
       inset: 0;
-      border-radius: 10px;
+      border-radius: 12px;
       backface-visibility: hidden;
       -webkit-backface-visibility: hidden;
       overflow: hidden;
       border: 3px solid #ffffff;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.3);
     }
     .flip-front img { width: 100%; height: 100%; object-fit: cover; }
     .flip-front::after {
       content: 'แตะเพื่อดูข้อความ ✦';
       position: absolute;
       bottom: 0; left: 0; right: 0;
-      padding: 14px 10px;
+      padding: 16px 10px;
       background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, transparent 100%);
       color: #fff;
-      font-size: 13px;
+      font-size: 14px;
       letter-spacing: 0.04em;
       text-align: center;
       font-family: 'IBM Plex Sans Thai', sans-serif;
@@ -258,8 +258,8 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 28px 24px;
-      gap: 16px;
+      padding: 32px 28px;
+      gap: 18px;
     }
     .photo-reveal.visible {
       animation: popPhoto 0.6s cubic-bezier(.34,1.56,.64,1) 0.3s forwards;
@@ -269,20 +269,6 @@
       0%   { transform: translate(-50%, 20%) scale(0.3); opacity: 0; }
       60%  { transform: translate(-50%, -52%) scale(1.05); opacity: 1; }
       100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
-    }
-
-    /* ── Overlay backdrop ── */
-    .backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0);
-      z-index: 99;
-      pointer-events: none;
-      transition: background 0.4s ease;
-    }
-    .backdrop.active {
-      background: rgba(0,0,0,0.55);
-      pointer-events: all;
     }
 
     /* ── Confetti ── */
@@ -301,25 +287,25 @@
 
     /* ── Rivet details ── */
     .rivet {
-      width: 8px;
-      height: 8px;
+      width: 10px;
+      height: 10px;
       border-radius: 50%;
       background: radial-gradient(circle at 35% 35%, #555, #1a1a1a);
-      box-shadow: 0 1px 2px rgba(0,0,0,0.5);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.5);
     }
 
     /* ── Status light ── */
     .status-light {
-      width: 8px;
-      height: 8px;
+      width: 10px;
+      height: 10px;
       border-radius: 50%;
       background: #22c55e;
-      box-shadow: 0 0 6px rgba(34,197,94,0.6);
+      box-shadow: 0 0 8px rgba(34,197,94,0.7);
       transition: background 0.3s, box-shadow 0.3s;
     }
     .status-light.red {
       background: #f87171;
-      box-shadow: 0 0 6px rgba(248,113,113,0.6);
+      box-shadow: 0 0 8px rgba(248,113,113,0.7);
     }
     @keyframes blink {
       0%,100% { opacity: 1; }
@@ -329,7 +315,7 @@
   </style>
 </head>
 
-<body class="min-h-screen flex items-center justify-center overflow-x-hidden px-6 py-12">
+<body class="min-h-screen flex items-center justify-center overflow-x-hidden px-6 py-14">
 
   <div id="confetti-container" aria-hidden="true"></div>
 
@@ -340,17 +326,17 @@
   <div class="photo-reveal" id="photoCard">
     <div class="flip-card-inner">
       <div class="flip-front">
-        <img src="Picture/Moh.jpg" alt="ภาพพิเศษ" />
+        <img src="Picture/Notsay.jpg" alt="ภาพพิเศษ" />
       </div>
       <div class="flip-back">
-        <div class="text-4xl leading-none">✦</div>
-        <span class="text-[#d4a843] font-semibold">ยินดีด้วย ✦</span>
-        <div class="text-[17px] font-bold text-[#d4a843] tracking-wide text-center"
+        <div class="text-5xl leading-none">✦</div>
+        <span class="text-[#d4a843] font-semibold text-lg">ยินดีด้วย ✦</span>
+        <div class="text-xl font-bold text-[#d4a843] tracking-wide text-center"
              style="font-family:'IBM Plex Sans Thai',sans-serif;">
           รหัสลับที่ซ่อนอยู่
         </div>
-        <div class="w-10 h-0.5 rounded-full bg-[#d4a843] opacity-60"></div>
-        <div class="text-[15px] leading-relaxed text-white/80 text-center"
+        <div class="w-12 h-0.5 rounded-full bg-[#d4a843] opacity-60"></div>
+        <div class="text-base leading-relaxed text-white/80 text-center"
              style="font-family:'IBM Plex Sans Thai',sans-serif;">
           คุณเปิดตู้เซฟได้แล้ว<br>
           นี่คือรางวัลสำหรับคนเก่ง
@@ -359,40 +345,40 @@
     </div>
   </div>
 
-  <main class="relative z-10 w-full max-w-sm flex flex-col items-center text-center gap-0">
+  <main class="relative z-10 w-full max-w-md flex flex-col items-center text-center gap-0">
 
     <!-- Title -->
-    <div class="fade-up mb-2" style="animation-delay:.05s">
-      <h1 class="text-[20px] font-bold text-[#111111]">ตู้เซฟลับ</h1>
+    <div class="fade-up mb-3" style="animation-delay:.05s">
+      <h1 class="text-3xl font-bold text-[#111111]">ตู้เซฟลับ</h1>
     </div>
-    <div class="fade-up mb-8" style="animation-delay:.15s">
-      <p class="text-[14px] text-[#888888]">ในเมื่อได้คะแนนเต็ม<br>หมายความว่าก็ต้องรู้รหัสอยู่แล้วสิ</p>
+    <div class="fade-up mb-10" style="animation-delay:.15s">
+      <p class="text-base text-[#888888] leading-relaxed">ในเมื่อได้คะแนนเต็ม<br>หมายความว่าก็ต้องรู้รหัสอยู่แล้วสิ</p>
     </div>
 
     <!-- Safe -->
     <div class="pop-in w-full" style="animation-delay:.25s">
-      <div class="safe-body mx-auto p-5" style="max-width:280px;">
+      <div class="safe-body mx-auto p-7 max-w-sm">
 
         <!-- Safe top label strip -->
-        <div class="flex items-center justify-between mb-3 px-1">
-          <div class="flex gap-1.5">
+        <div class="flex items-center justify-between mb-4 px-1">
+          <div class="flex gap-2">
             <div class="rivet"></div>
             <div class="rivet"></div>
           </div>
-          <div class="text-[10px] font-mono text-[#555] tracking-[0.2em] uppercase">VAULT-01</div>
-          <div class="flex gap-1.5">
+          <div class="text-xs font-mono text-[#555] tracking-[0.25em] uppercase">VAULT-01</div>
+          <div class="flex gap-2">
             <div class="rivet"></div>
             <div class="rivet"></div>
           </div>
         </div>
 
         <!-- Door panel -->
-        <div class="safe-door p-4" id="safeDoor">
+        <div class="safe-door p-5" id="safeDoor">
 
           <!-- Dial + bolts row -->
-          <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center justify-between mb-5">
             <!-- Left bolts -->
-            <div class="flex flex-col gap-2 items-center" id="bolts-left">
+            <div class="flex flex-col gap-2.5 items-center" id="bolts-left">
               <div class="bolt" id="bolt1"></div>
               <div class="bolt" id="bolt2"></div>
               <div class="bolt" id="bolt3"></div>
@@ -406,24 +392,24 @@
             </div>
 
             <!-- Handle + status -->
-            <div class="flex flex-col items-center gap-2">
+            <div class="flex flex-col items-center gap-2.5">
               <div class="status-light" id="statusLight"></div>
               <div class="safe-handle"></div>
             </div>
           </div>
 
           <!-- Display -->
-          <div class="keypad-display p-3 mb-4">
-            <div class="flex justify-center gap-1.5" id="dotRow">
+          <div class="keypad-display p-4 mb-5">
+            <div class="flex justify-center gap-2" id="dotRow">
               <!-- dots rendered by JS -->
             </div>
-            <div class="text-[10px] text-[#444] text-center mt-2 tracking-widest font-mono" id="statusText">
+            <div class="text-xs text-[#444] text-center mt-2.5 tracking-widest font-mono" id="statusText">
               LOCKED
             </div>
           </div>
 
           <!-- Keypad -->
-          <div class="grid grid-cols-3 gap-2" id="keypad">
+          <div class="grid grid-cols-3 gap-3" id="keypad">
             <button class="num-btn" data-n="1">1</button>
             <button class="num-btn" data-n="2">2</button>
             <button class="num-btn" data-n="3">3</button>
@@ -435,20 +421,20 @@
             <button class="num-btn" data-n="9">9</button>
             <button class="num-btn del-btn" id="delBtn">⌫</button>
             <button class="num-btn" data-n="0">0</button>
-            <button class="num-btn" id="clearBtn" style="color:#777;font-size:11px;">CLR</button>
+            <button class="num-btn text-[#777] text-sm" id="clearBtn">CLR</button>
           </div>
 
         </div>
         <!-- /safe-door -->
 
         <!-- Bottom rivets -->
-        <div class="flex items-center justify-between mt-3 px-1">
-          <div class="flex gap-1.5">
+        <div class="flex items-center justify-between mt-4 px-1">
+          <div class="flex gap-2">
             <div class="rivet"></div>
             <div class="rivet"></div>
           </div>
-          <div class="text-[9px] font-mono text-[#3a3a3a] tracking-widest">SECURITY GRADE A</div>
-          <div class="flex gap-1.5">
+          <div class="text-[10px] font-mono text-[#3a3a3a] tracking-widest">SECURITY GRADE A</div>
+          <div class="flex gap-2">
             <div class="rivet"></div>
             <div class="rivet"></div>
           </div>
@@ -458,9 +444,9 @@
     </div>
 
     <!-- Buttons (hidden until unlocked) -->
-    <div class="fade-up w-full mt-8 hidden" id="btnGroup">
+    <div class="fade-up w-full mt-10 hidden" id="btnGroup">
       <a href="index.html"
-        class="block w-full py-[14px] px-5 bg-[#111111] text-white rounded-lg text-[15px] font-semibold cursor-pointer transition-all duration-150 hover:bg-[#333333] active:scale-[0.98] mb-3 text-center">
+        class="block w-full py-4 px-6 bg-[#111111] text-white rounded-xl text-base font-semibold cursor-pointer transition-all duration-150 hover:bg-[#333333] active:scale-[0.98] mb-3 text-center">
         กลับหน้าแรก
       </a>
     </div>
@@ -502,13 +488,11 @@
     }
 
     function flashError() {
-      // Turn dots red
       const dots = dotRow.querySelectorAll('.display-dot');
       dots.forEach(d => { d.classList.remove('filled'); d.classList.add('error'); });
       statusText.textContent = 'WRONG';
       statusLight.classList.add('red', 'blinking');
 
-      // Shake safe
       safeDoor.classList.add('shake');
       setTimeout(() => safeDoor.classList.remove('shake'), 450);
 
@@ -522,7 +506,6 @@
     }
 
     function triggerUnlock() {
-      // Spin dial a few times
       let spins = 0;
       const spinInterval = setInterval(() => {
         spinDial();
@@ -535,7 +518,6 @@
     }
 
     function openSafe() {
-      // Retract bolts
       bolts.forEach((b, i) => {
         setTimeout(() => b.classList.add('retracted'), i * 120);
       });
@@ -543,26 +525,21 @@
       statusText.textContent = 'OPEN';
       statusLight.classList.remove('red');
       statusLight.style.background = '#d4a843';
-      statusLight.style.boxShadow = '0 0 8px rgba(212,168,67,0.8)';
+      statusLight.style.boxShadow = '0 0 10px rgba(212,168,67,0.85)';
 
-      // Open door
       setTimeout(() => {
         safeDoor.classList.add('opening');
       }, 450);
 
-      // Launch confetti
       setTimeout(launchConfetti, 600);
 
-      // Show photo
       setTimeout(() => {
         backdrop.classList.add('active');
         photoCard.classList.add('visible');
       }, 900);
 
-      // Disable keypad
       document.getElementById('keypad').style.pointerEvents = 'none';
 
-      // Show buttons after photo appears
       setTimeout(() => {
         btnGroup.classList.remove('hidden');
         btnGroup.style.animation = 'fadeUp .45s ease forwards';
@@ -602,7 +579,6 @@
       statusText.textContent = 'LOCKED';
     }
 
-    // Keypad buttons
     document.querySelectorAll('.num-btn[data-n]').forEach(btn => {
       btn.addEventListener('click', () => {
         btn.classList.add('pressed');
@@ -613,25 +589,21 @@
     document.getElementById('delBtn').addEventListener('click', deleteKey);
     document.getElementById('clearBtn').addEventListener('click', clearKey);
 
-    // Keyboard support
     document.addEventListener('keydown', e => {
       if (e.key >= '0' && e.key <= '9') pressKey(e.key);
       else if (e.key === 'Backspace') deleteKey();
       else if (e.key === 'Escape') clearKey();
     });
 
-    // Flip card
     photoCard.addEventListener('click', e => {
       e.stopPropagation();
       photoCard.classList.toggle('flipped');
     });
 
-    // Close on backdrop click (only after flipping once)
     backdrop.addEventListener('click', () => {
       // do nothing — keeps card open
     });
 
-    // Confetti
     function launchConfetti() {
       const colors = ['#fbbf24','#34d399','#60a5fa','#f87171','#a78bfa','#fb923c','#4ade80','#d4a843'];
       const container = document.getElementById('confetti-container');
