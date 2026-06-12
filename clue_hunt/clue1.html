@@ -48,12 +48,8 @@
 
   </div>
   <script>
-    // 🔴 แก้คำใบ้ที่ถูกต้องได้ที่นี่
-    const ANSWER = "พี่มีนาฬิกา";
-
-    function checkClue() {
+    async function checkClue() {
       const input = document.getElementById('input-clue1');
-      const msg = document.getElementById('msg');
       const val = input.value.trim();
 
       if (!val) {
@@ -62,15 +58,26 @@
         return;
       }
 
-      if (val.toLowerCase() === ANSWER.toLowerCase()) {
-        input.classList.remove('error');
-        input.classList.add('success');
-        showMsg('ถูกต้อง', 'success');
-        setTimeout(() => window.location.href = 'clue2.html', 900);
-      } else {
-        input.classList.remove('success');
-        input.classList.add('error');
-        showMsg('ลองใหม่อีกครั้งนะ', 'error');
+      try {
+        const res = await fetch('/api/check', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ clue: 'clue1', answer: val })
+        });
+        const data = await res.json();
+
+        if (data.correct) {
+          input.classList.remove('error');
+          input.classList.add('success');
+          showMsg('ถูกต้อง', 'success');
+          setTimeout(() => window.location.href = 'clue2.html', 900);
+        } else {
+          input.classList.remove('success');
+          input.classList.add('error');
+          showMsg('ลองใหม่อีกครั้งนะ', 'error');
+        }
+      } catch (e) {
+        showMsg('เกิดข้อผิดพลาด ลองใหม่อีกครั้ง', 'error');
       }
     }
 
